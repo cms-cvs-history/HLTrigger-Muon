@@ -1,0 +1,47 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
+
+### HLT Filter flux ##########################################################
+module SingleMuNoIsoL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltMuonLevel1Seed
+
+      double MaxEta = 2.5
+      double MinPt = 0.
+      int32 MinQuality = -1
+      int32 MinN = 1
+}
+
+module SingleMuNoIsoL2PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = L2MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 4
+      int32 MinNhits = 0
+      double MaxDr = 9999.
+      double MaxDz = 9999.
+      double MinPt = 19.
+      double NSigmaPt = 3.9
+}
+
+module SingleMuNoIsoL3PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = L3MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 5
+      int32 MinNhits = 0
+      double MaxDr = 0.02
+      double MaxDz = 9999.
+      double MinPt = 19.
+      double NSigmaPt = 2.2
+}
+
+sequence singleMuNoIso = {
+    #L1 muon
+            l1muonreco & SingleMuNoIsoL1Filtered
+    #L2 muon
+          & l2muonreco & SingleMuNoIsoL2PreFiltered
+    #L3 muon
+          & l3muonreco & SingleMuNoIsoL3PreFiltered
+}

@@ -1,0 +1,65 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
+
+### HLT Filter flux ##########################################################
+module SingleMuIsoL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltMuonLevel1Seed
+
+      double MaxEta = 2.5
+      double MinPt = 0.
+      int32 MinQuality = -1
+      int32 MinN = 1
+}
+
+module SingleMuIsoL2PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = L2MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 4
+      int32 MinNhits = 0
+      double MaxDr = 9999.
+      double MaxDz = 9999.
+      double MinPt = 19.
+      double NSigmaPt = 3.9
+}
+
+module SingleMuIsoL2IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = SingleMuIsoL2PreFiltered
+      InputTag IsoTag = L2MuonIsolations
+
+      int32 MinN = 1
+}
+
+module SingleMuIsoL3PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = L3MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 5
+      int32 MinNhits = 0
+      double MaxDr = 0.02
+      double MaxDz = 9999.
+      double MinPt = 19.
+      double NSigmaPt = 2.2
+}
+
+module SingleMuIsoL3IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = SingleMuIsoL3PreFiltered
+      InputTag IsoTag = L3MuonIsolations
+
+      int32 MinN = 1
+}
+
+sequence singleMuIso = {
+    #L1 muon
+            l1muonreco & SingleMuIsoL1Filtered
+    #L2 muon
+          & l2muonreco & SingleMuIsoL2PreFiltered
+    #L2 muon isolation
+          & l2muonisoreco & SingleMuIsoL2IsoFiltered
+    #L3 muon
+          & l3muonreco & SingleMuIsoL3PreFiltered
+    #L3 muon isolation
+          & l3muonisoreco & SingleMuIsoL3IsoFiltered
+}
