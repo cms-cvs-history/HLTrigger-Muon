@@ -20,7 +20,7 @@ module SingleMuNoIsoL2PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 9999.
       double MaxDz = 9999.
-      double MinPt = 19.
+      double MinPt = 37.
       double NSigmaPt = 3.9
 }
 
@@ -33,7 +33,7 @@ module SingleMuNoIsoL3PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 0.02
       double MaxDz = 9999.
-      double MinPt = 19.
+      double MinPt = 37.
       double NSigmaPt = 2.2
 }
 
