@@ -30,7 +30,6 @@ include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
                                                                                 
 ## L2 seeds from L1 input
 include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
-replace L2MuonSeeds.InputObjects = l1extraParticles
 
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
