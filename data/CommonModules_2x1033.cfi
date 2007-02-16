@@ -55,7 +55,11 @@ module L2MuonIsolations = L2MuonIsolationProducer {
             double Threshold_H = 0.5
             double DR_Veto_E = 0.07
             double DR_Veto_H = 0.10
-            double DR_Max = 1.0
+
+            #Use this for trigger studies
+            #double DR_Max = 1.0 
+            #Use this for standard HLT running and timing studies
+            double DR_Max = 0.24
 
             bool Vertex_Constraint_XY = false
             bool Vertex_Constraint_Z = false
@@ -63,9 +67,11 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 }
 
 ## L3 regional reconstruction
-#include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonAlts.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
+#Use these region sizes for standard HLT running and timing studies
+replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.24
+replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.24
 
 ## L3 track isolation
 module L3MuonIsolations = L3MuonIsolationProducer {
@@ -85,7 +91,11 @@ module L3MuonIsolations = L3MuonIsolationProducer {
             double Diff_r = 0.1
             double Diff_z = 20.2
             double DR_Veto = 0.010
-            double DR_Max = 1.0
+
+            #Use this for trigger studies
+            #double DR_Max = 1.0 
+            #Use this for standard HLT running and timing studies
+            double DR_Max = 0.24
       }
 
 }
@@ -93,6 +103,5 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 sequence l1muonreco = { l1emulator, l1extra, hltMuonLevel1Seed }
 sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { hcalLocalRecoSequence, caloTowersRec, L2MuonIsolations }
-#sequence l3muonreco = { trackerlocalreco, L3Muons, L3MuonCandidates }
 sequence l3muonreco = { trackerlocalreco, L3muonAltReco, L3MuonCandidates }
 sequence l3muonisoreco = { L3MuonIsolations }
