@@ -124,6 +124,6 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 sequence l1muonreco = { l1emulator, l1extra, hltMuonLevel1Seed }
 sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
-sequence l2muonisoreco = { hcalLocalRecoSequence, caloTowersRec, L2MuonIsolations }
+sequence l2muonisoreco = { calolocalreco, caloTowersRec, L2MuonIsolations }
 sequence l3muonreco = { trackerlocalreco, L3Muons, L3MuonCandidates }
 sequence l3muonisoreco = { regionalTrackingForMuIso, L3MuonIsolations }
