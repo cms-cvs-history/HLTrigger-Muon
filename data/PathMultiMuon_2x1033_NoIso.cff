@@ -2,7 +2,7 @@
 include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
 
 ### HLT Filter flux ##########################################################
-module MultiMuonNoIsoL1Filtered = HLTMuonL1Filter {
+module multiMuonNoIsoL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = hltMuonLevel1Seed
 
       double MaxEta = 2.5
@@ -11,7 +11,7 @@ module MultiMuonNoIsoL1Filtered = HLTMuonL1Filter {
       int32 MinN = 2
 }
 
-module MultiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
+module multiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
       InputTag CandTag = L2MuonCandidates
 
       int32 MinN = 3
@@ -24,7 +24,7 @@ module MultiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
       double NSigmaPt = 3.9
 }
 
-module MultiMuonNoIsoL3PreFiltered = HLTMuonPreFilter {
+module multiMuonNoIsoL3PreFiltered = HLTMuonPreFilter {
       InputTag CandTag = L3MuonCandidates
 
       int32 MinN = 3
