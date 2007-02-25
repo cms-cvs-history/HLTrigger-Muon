@@ -1,6 +1,6 @@
 ### RecoMuon flux ##########################################################
 ## L1 emulation
-include "L1Trigger/L1ExtraFromDigis/data/l1extra.cff"
+include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
 
 ## HLT common filter for L1 input
 module hltMuonLevel1Seed = HLTLevel1Seed {
@@ -22,11 +22,10 @@ module hltMuonLevel1Seed = HLTLevel1Seed {
 include "RecoLocalMuon/Configuration/data/RecoLocalMuon.cff"
                                                                                 
 ## CaloTowers
-include "RecoLocalCalo/Configuration/data/RecoLocalCalo.cff"
-include "Configuration/JetMET/data/calorimetry-caltowers.cff"
+include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 
 ## Local Tracker reconstruction
-include "RecoLocalTracker/Configuration/data/RecoLocalTracker.cff"
+include "HLTrigger/Configuration/data/common/LocalTracker.cff"
                                                                                 
 ## L2 seeds from L1 input
 include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
@@ -122,8 +121,8 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-sequence l1muonreco = { l1emulator, l1extra, hltMuonLevel1Seed }
+sequence l1muonreco = { doL1TfromDigis, hltMuonLevel1Seed }
 sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
-sequence l2muonisoreco = { calolocalreco, caloTowersRec, L2MuonIsolations }
-sequence l3muonreco = { trackerlocalreco, L3Muons, L3MuonCandidates }
+sequence l2muonisoreco = { doCaloFromDigis, L2MuonIsolations }
+sequence l3muonreco = { doLocalTrackerFromDigis, L3Muons, L3MuonCandidates }
 sequence l3muonisoreco = { regionalTrackingForMuIso, L3MuonIsolations }
