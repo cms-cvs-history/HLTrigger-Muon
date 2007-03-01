@@ -122,7 +122,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-sequence l1muonreco = { doL1TfromDigis, hltMuonLevel1Seed }
+sequence l1muonreco = { doL1TfromDigis & hltMuonLevel1Seed }
 sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { doCaloFromDigis, L2MuonIsolations }
 sequence l3muonreco = { doLocalTrackerFromDigis, L3Muons, L3MuonCandidates }
