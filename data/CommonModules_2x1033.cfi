@@ -1,10 +1,10 @@
 ### RecoMuon flux ##########################################################
-# Use a wide cone in L3 reconstruction (L3AltMuons, deltaR=0.24 by default)
-include "HLTrigger/Muon/data/CommonModules_2x1033_Alt.cfi"
-
 # OR use muon-specific L3Muons plus a wide one for L3 isolation
-#include "HLTrigger/Muon/data/CommonModules_2x1033_NoAlt.cfi"
+include "HLTrigger/Muon/data/CommonModules_2x1033_NoAlt.cfi"
 
 # OR use a narrow cone for L3AltMuons plus a wide one for L3 isolation
 #include "HLTrigger/Muon/data/CommonModules_2x1033_AltNarrowPlusWide.cfi"
+
+# Use a wide cone in L3 reconstruction (L3AltMuons, deltaR=0.24 by default)
+#include "HLTrigger/Muon/data/CommonModules_2x1033_Alt.cfi"
 
