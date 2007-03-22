@@ -73,8 +73,13 @@ include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
 
 ## Specific regional tracking for muon isolation
 module regionalPixelForMuIsoSeeds = regionalPixelFromTrkSeeds from "RecoTracker/TkSeedGenerator/data/RegionalPixelFromTrkSeeds.cfi"
+replace regionalPixelForMuIsoSeeds2.TrkSrc = L3Muons
 replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.24
 replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.24
+
+## Use when the new RegionalPixelFromTrkSeeds gets ready (>= 131)
+# replace regionalPixelForMuIsoSeeds2.vertexZConstrained = true
+# replace regionalPixelForMuIsoSeeds2.originHalfLength = 0.2
 
 include "RecoTracker/CkfPattern/data/CkfTrajectoryBuilderESProducer.cff"
 

@@ -70,13 +70,19 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 include "RecoMuon/L3MuonProducer/data/L3MuonAlts.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
 #Use these region sizes for standard HLT running and timing studies
+replace regionalPixelForMuIsoSeeds.ptMin = 1.0
 replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.10
 replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.10
 
 ## Specific regional tracking for muon isolation
 module regionalPixelForMuIsoSeeds2 = regionalPixelFromTrkSeeds from "RecoTracker/TkSeedGenerator/data/RegionalPixelFromTrkSeeds.cfi"
+replace regionalPixelForMuIsoSeeds2.TrkSrc = L3Muons
 replace regionalPixelForMuIsoSeeds2.deltaEtaRegion = 0.24
 replace regionalPixelForMuIsoSeeds2.deltaPhiRegion = 0.24
+
+## Use when the new RegionalPixelFromTrkSeeds gets ready (>= 131)
+# replace regionalPixelForMuIsoSeeds2.vertexZConstrained = true
+# replace regionalPixelForMuIsoSeeds2.originHalfLength = 0.2
 
 module ckfTrackForMuIsoCandidates2 =  ckfTrackCandidates from "RecoTracker/CkfPattern/data/CkfTrackCandidates.cfi"
 replace ckfTrackForMuIsoCandidates2.SeedProducer  = "regionalPixelForMuIsoSeeds2"
@@ -106,7 +112,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
             //double Pt_Min = 0.9
             double Diff_r = 0.1
-            double Diff_z = 20.2
+            double Diff_z = 0.2
             double DR_Veto = 0.010
 
             #Use this for trigger studies
