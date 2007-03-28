@@ -80,9 +80,9 @@ replace regionalPixelForMuIsoSeeds2.TrkSrc = L3Muons
 replace regionalPixelForMuIsoSeeds2.deltaEtaRegion = 0.24
 replace regionalPixelForMuIsoSeeds2.deltaPhiRegion = 0.24
 
-## Use when the new RegionalPixelFromTrkSeeds gets ready (>= 131)
-# replace regionalPixelForMuIsoSeeds2.vertexZConstrained = true
-# replace regionalPixelForMuIsoSeeds2.originHalfLength = 0.2
+## Use new RegionalPixelFromTrkSeeds constrained to L3 muon vertices
+replace regionalPixelForMuIsoSeeds2.vertexZConstrained = true
+replace regionalPixelForMuIsoSeeds2.originHalfLength = 0.2
 
 module ckfTrackForMuIsoCandidates2 =  ckfTrackCandidates from "RecoTracker/CkfPattern/data/CkfTrackCandidates.cfi"
 replace ckfTrackForMuIsoCandidates2.SeedProducer  = "regionalPixelForMuIsoSeeds2"
