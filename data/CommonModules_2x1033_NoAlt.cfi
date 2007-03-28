@@ -97,7 +97,7 @@ sequence regionalTrackingForMuIso = {
                         , ctfWithMaterialForMuIsoTracks
 }
 
-# Produce L3Muons (<reco:TrackCollection>)
+# Produce tracks (<reco:TrackCollection>)
 include "TrackingTools/TransientTrack/data/TransientTrackBuilder.cfi"
 
 ## L3 track isolation
