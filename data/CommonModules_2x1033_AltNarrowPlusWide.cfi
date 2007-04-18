@@ -2,22 +2,6 @@
 ## L1 emulation
 include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
 
-## HLT common filter for L1 input
-module hltMuonLevel1Seed = HLTLevel1Seed {
-		vstring L1Seeds = {       "SingleMuon"
-                                    , "DoubleMuon"
-                                    , "Muon+MET"
-                                    , "Muon+Jet"
-                                    , "Muon+Tau"
-                                    , "IsoEM+Muon"
-                              }
-		bool andOr      = true
-		bool byName     = true
-            InputTag L1ExtraCollections = l1extraParticles
-            InputTag L1ExtraParticleMap = l1extraParticleMap
-            InputTag L1GTReadoutRecord = l1extraParticleMap
-}
-
 ## Local Muon reconstruction
 include "RecoLocalMuon/Configuration/data/RecoLocalMuon.cff"
                                                                                 
@@ -123,7 +107,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-sequence l1muonreco = { doL1TfromDigis & hltMuonLevel1Seed }
+sequence l1muonreco = { doL1TfromDigis }
 sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { doCaloFromDigis, L2MuonIsolations }
 sequence l3muonreco = { doLocalTrackerFromDigis, L3muonAltReco, L3MuonCandidates }

@@ -2,8 +2,17 @@
 include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
 
 ### HLT Filter flux ##########################################################
+module multiMuonNoIsoLevel1Seed = HLTLevel1Seed {
+            vstring L1Seeds = { "A_TripleMu7" }
+            bool andOr      = true
+            bool byName     = true
+            InputTag L1ExtraCollections = l1extraParticles
+            InputTag L1ExtraParticleMap = l1extraParticleMap
+            InputTag L1GTReadoutRecord = l1extraParticleMap
+}
+
 module multiMuonNoIsoL1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = hltMuonLevel1Seed
+      InputTag CandTag = multiMuonNoIsoLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -39,7 +48,7 @@ module multiMuonNoIsoL3PreFiltered = HLTMuonPreFilter {
 
 sequence multiMuonNoIso = {
     #L1 muon
-            l1muonreco & multiMuonNoIsoL1Filtered
+            l1muonreco & multiMuonNoIsoLevel1Seed & multiMuonNoIsoL1Filtered
     #L2 muon
           & l2muonreco & multiMuonNoIsoL2PreFiltered
     #L3 muon
