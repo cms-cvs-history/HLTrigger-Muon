@@ -8,3 +8,6 @@ include "HLTrigger/Muon/data/CommonModules_2x1033_AltNarrowPlusWide.cfi"
 # Use a wide cone in L3 reconstruction (L3AltMuons, deltaR=0.24 by default)
 #include "HLTrigger/Muon/data/CommonModules_2x1033_Alt.cfi"
 
+# Use Pixel vertexing
+#include "HLTrigger/Muon/data/CommonModules_2x1033_WithPixelVertexing.cfi"
+

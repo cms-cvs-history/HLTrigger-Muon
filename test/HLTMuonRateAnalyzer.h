@@ -35,7 +35,7 @@ private:
   edm::InputTag theGenLabel;
   edm::InputTag theL1CollectionLabel;
   std::vector<edm::InputTag> theHLTCollectionLabels;
-  std::vector<unsigned int> isDecoupled;
+  double theL1ReferenceThreshold;
   std::vector<double> theNSigmas;
   unsigned int theNumberOfObjects;
   double theCrossSection;

@@ -36,7 +36,7 @@ HLTMuonRateAnalyzer::HLTMuonRateAnalyzer(const ParameterSet& pset)
   theGenLabel = pset.getUntrackedParameter<InputTag>("GenLabel");
   theL1CollectionLabel = pset.getUntrackedParameter<InputTag>("L1CollectionLabel");
   theHLTCollectionLabels = pset.getUntrackedParameter<std::vector<InputTag> >("HLTCollectionLabels");
-  isDecoupled = pset.getUntrackedParameter<std::vector<unsigned> >("DecoupleFromPreviousFilters");
+  theL1ReferenceThreshold = pset.getUntrackedParameter<double>("L1ReferenceThreshold");
   theNSigmas = pset.getUntrackedParameter<std::vector<double> >("NSigmas90");
 
   theNumberOfObjects = pset.getUntrackedParameter<unsigned int>("NumberOfObjects");
@@ -173,26 +173,32 @@ void HLTMuonRateAnalyzer::analyze(const Event & event, const EventSetup& eventSe
       modules_in_this_event++;
   }
 
+  // L1 reference
+  unsigned int nL1FoundRef = 0;
+  for (unsigned int k=0; k<l1cands->size(); k++) {
+      RefToBase<Candidate> candref = l1cands->getParticleRef(k);
+      double pt = candref->pt();
+      if (pt>theL1ReferenceThreshold) nL1FoundRef++;
+  }
+
   for (unsigned int j=0; j<theNbins; j++) {
       double ptcut = thePtMin + j*(thePtMax-thePtMin)/theNbins;
 
       // L1 filling
-      unsigned int nfound = 0;
+      unsigned int nFound = 0;
       for (unsigned int k=0; k<l1cands->size(); k++) {
             RefToBase<Candidate> candref = l1cands->getParticleRef(k);
             double pt = candref->pt();
-            if (pt>ptcut) nfound++;
+            if (pt>ptcut) nFound++;
       }
-      if (nfound>=theNumberOfObjects) {
-            hL1eff->Fill(ptcut,this_event_weight);
-      } else {
-            unsigned int next_filter = 0;
-            if (!isDecoupled[next_filter]) continue;
-      }
+      if (nFound>=theNumberOfObjects) hL1eff->Fill(ptcut,this_event_weight);
+
+      // Stop here if L1 reference cuts were not satisfied
+      if (nL1FoundRef<theNumberOfObjects) continue;
 
       // HLT filling
       for (unsigned int i=0; i<modules_in_this_event; i++) {
-            unsigned nfound = 0;
+            unsigned nFound = 0;
             for (unsigned int k=0; k<hltcands[i]->size(); k++) {
                   RefToBase<Candidate> candref = hltcands[i]->getParticleRef(k);
                   TrackRef tk = candref->get<TrackRef>();
@@ -201,18 +207,12 @@ void HLTMuonRateAnalyzer::analyze(const Event & event, const EventSetup& eventSe
                   double abspar0 = fabs(tk->parameter(0));
                   // convert to 90% efficiency threshold
                   if (abspar0>0) pt += theNSigmas[i]*err0/abspar0*pt;
-                  if (pt>ptcut) nfound++;
+                  if (pt>ptcut) nFound++;
             }
-            if (nfound>=theNumberOfObjects) {
+            if (nFound>=theNumberOfObjects) {
                   hHLTeff[i]->Fill(ptcut,this_event_weight);
-            } else {
-                  unsigned int next_filter = i+1;
-                  if (    next_filter<theHLTCollectionLabels.size() 
-                       && (!isDecoupled[next_filter]) ) goto next_bin;
             }
       }
-next_bin:
-      continue;
   }
 
 }
