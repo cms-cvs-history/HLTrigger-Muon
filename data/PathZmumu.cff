@@ -3,7 +3,7 @@ include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
 
 ### HLT Filter flux ##########################################################
 module ZMMLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = { "A_DoubleMu7" }
+            vstring L1Seeds = { "A_DoubleMu3" }
             bool andOr      = true
             bool byName     = true
             InputTag L1ExtraCollections = l1extraParticles
@@ -37,6 +37,8 @@ module ZMML2Filtered = HLTMuonDimuonFilter {
       double MaxInvMass = 9999.
       double MinAcop = -1.0
       double MaxAcop = 3.15
+      double MinPtBalance = -1.0
+      double MaxPtBalance = 999999.
       double NSigmaPt = 0.
 }
 
@@ -57,6 +59,8 @@ module ZMML3Filtered = HLTMuonDimuonFilter {
       double MaxInvMass = 100.
       double MinAcop = -1.0
       double MaxAcop = 3.15
+      double MinPtBalance = -1.0
+      double MaxPtBalance = 999999.
       double NSigmaPt = 0.
 }
 
