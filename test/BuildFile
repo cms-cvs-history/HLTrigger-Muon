@@ -9,6 +9,6 @@
 <use name=root>
 
 <library file="HLTMuonRateAnalyzer.cc" name=HLTMuonRateAnalyzer>
-  <flags SEAL_PLUGIN_NAME="HLTMuonRateAnalyzer"> 
+  <flags EDM_PLUGIN=1>
 </library> 
 
