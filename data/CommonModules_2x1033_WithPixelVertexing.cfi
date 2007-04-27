@@ -58,7 +58,11 @@ include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
 replace regionalPixelForMuIsoSeeds.ptMin = 1.0
 replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.10
 replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.10
+
+## Use Pixel primary vertex constraint to obtain the L3 muon collection
+replace regionalPixelForMuIsoSeeds.vertexZConstrained = false
 replace regionalPixelForMuIsoSeeds.vertexSrc = "pixelVertices"
+replace regionalPixelForMuIsoSeeds.originHalfLength = 0.2
 
 ## Specific regional tracking for muon isolation
 module regionalPixelForMuIsoSeeds2 = regionalPixelFromTrkSeeds from "RecoTracker/TkSeedGenerator/data/RegionalPixelFromTrkSeeds.cfi"
@@ -68,6 +72,7 @@ replace regionalPixelForMuIsoSeeds2.deltaPhiRegion = 0.24
 
 ## Use new RegionalPixelFromTrkSeeds constrained to L3 muon vertices
 replace regionalPixelForMuIsoSeeds2.vertexZConstrained = true
+replace regionalPixelForMuIsoSeeds2.vertexSrc = ""
 replace regionalPixelForMuIsoSeeds2.originHalfLength = 0.2
 
 module ckfTrackForMuIsoCandidates2 =  ckfTrackCandidates from "RecoTracker/CkfPattern/data/CkfTrackCandidates.cfi"
