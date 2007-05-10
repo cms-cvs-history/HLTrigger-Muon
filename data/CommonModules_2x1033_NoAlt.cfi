@@ -1,16 +1,7 @@
 ### RecoMuon flux ##########################################################
-## L1 emulation
-include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
+## Common HLT stuff
+include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 
-## Local Muon reconstruction
-include "RecoLocalMuon/Configuration/data/RecoLocalMuon.cff"
-                                                                                
-## CaloTowers
-include "HLTrigger/Configuration/data/common/CaloTowers.cff"
-
-## Local Tracker reconstruction
-include "HLTrigger/Configuration/data/common/LocalTracker.cff"
-                                                                                
 ## L2 seeds from L1 input
 include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
 
@@ -52,10 +43,7 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 
 ## L3 regional reconstruction
 include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
-# Use just tracker hits (no combined track-muon fit for the time being)
-replace L3Muons.L3TrajBuilderParameters.MuonHitsOption = 0
 include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
-
 
 ## Specific regional tracking for muon isolation
 module regionalPixelForMuIsoSeeds = regionalPixelFromTrkSeeds from "RecoTracker/TkSeedGenerator/data/RegionalPixelFromTrkSeeds.cfi"
@@ -113,8 +101,8 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-sequence l1muonreco = { doL1TfromDigis }
-sequence l2muonreco = { L2MuonSeeds, muonlocalreco, L2Muons, L2MuonCandidates }
-sequence l2muonisoreco = { doCaloFromDigis, L2MuonIsolations }
-sequence l3muonreco = { doLocalTrackerFromDigis, L3Muons, L3MuonCandidates }
+sequence l1muonreco = { hltBegin }
+sequence l2muonreco = { L2MuonSeeds, doLocalMuon, L2Muons, L2MuonCandidates }
+sequence l2muonisoreco = { doLocalCalo, L2MuonIsolations }
+sequence l3muonreco = { doLocalTracker, L3Muons, L3MuonCandidates }
 sequence l3muonisoreco = { regionalTrackingForMuIso, L3MuonIsolations }
