@@ -11,4 +11,12 @@
 <library file="HLTMuonRateAnalyzer.cc" name=HLTMuonRateAnalyzer>
   <flags EDM_PLUGIN=1>
 </library> 
+<library file="MuEnrichType1Filter.cc" name=MuEnrichType1Filter>
+  <flags SEAL_PLUGIN_NAME="MuEnrichType1Filter"> 
+</library> 
+<library file="MuEnrichRenormalizer.cc" name=MuEnrichRenormalizer>
+  <flags SEAL_PLUGIN_NAME="MuEnrichRenormalizer"> 
+</library> 
+
+
 
