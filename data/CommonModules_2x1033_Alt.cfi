@@ -89,6 +89,6 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 sequence l1muonreco = { hltBegin }
 sequence l2muonreco = { L2MuonSeeds, doLocalMuon, L2Muons, L2MuonCandidates }
-sequence l2muonisoreco = { doLocalCalo, L2MuonIsolations }
+sequence l2muonisoreco = { doCalo, L2MuonIsolations }
 sequence l3muonreco = { doLocalTracker, L3muonAltReco, L3MuonCandidates }
 sequence l3muonisoreco = { L3MuonIsolations }
