@@ -3,18 +3,6 @@
 include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 
-## L1 emulation
-#include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
-
-## Local Muon reconstruction
-#include "RecoLocalMuon/Configuration/data/RecoLocalMuon.cff"
-                                                                                
-## CaloTowers
-#include "HLTrigger/Configuration/data/common/CaloTowers.cff"
-
-## Local Tracker reconstruction
-#include "HLTrigger/Configuration/data/common/LocalTracker.cff"
-                                                                                
 ## L2 seeds from L1 input
 include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
 
@@ -55,13 +43,20 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 }
 
 ## L3 regional reconstruction
+include "HLTrigger/Configuration/data/common/Vertexing.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonAlts.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
 #Use these region sizes for standard HLT running and timing studies
-replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.24
-replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.24
+replace regionalPixelForMuIsoSeeds.ptMin = 1.0
+replace regionalPixelForMuIsoSeeds.deltaEtaRegion = 0.05
+replace regionalPixelForMuIsoSeeds.deltaPhiRegion = 0.05
 
-## L3 track isolation
+## Use Pixel primary vertex constraint to obtain the L3 muon collection
+replace regionalPixelForMuIsoSeeds.vertexZConstrained = false
+replace regionalPixelForMuIsoSeeds.vertexSrc = "pixelVertices"
+replace regionalPixelForMuIsoSeeds.originHalfLength = 0.2
+
+## L3 track isolation using vertexing
 module L3MuonIsolations = L3MuonIsolationProducer {
       untracked string MuonCollectionLabel = "L3Muons"
 
@@ -72,12 +67,12 @@ module L3MuonIsolations = L3MuonIsolationProducer {
       bool OutputMuIsoDeposits = true
 
       PSet MuIsoExtractorParameters = {
-            untracked string TrackCollectionLabel = "ctfWithMaterialForMuIsoTracks"
+            untracked string TrackCollectionLabel = "pixelTracks"
             untracked string DepositLabel = "PXLS"
 
             //double Pt_Min = 0.9
             double Diff_r = 0.1
-            double Diff_z = 20.2
+            double Diff_z = 0.2
             double DR_Veto = 0.010
 
             #Use this for trigger studies
@@ -91,5 +86,5 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 sequence l1muonreco = { hltBegin }
 sequence l2muonreco = { L2MuonSeeds, doLocalMuon, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { doCalo, L2MuonIsolations }
-sequence l3muonreco = { doLocalTracker, L3muonAltReco, L3MuonCandidates }
+sequence l3muonreco = { doLocalTracker, recopixelvertexing, L3muonAltReco, L3MuonCandidates }
 sequence l3muonisoreco = { L3MuonIsolations }
