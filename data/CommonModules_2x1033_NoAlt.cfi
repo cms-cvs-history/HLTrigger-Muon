@@ -43,6 +43,7 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 }
 
 ## L3 regional reconstruction
+es_prefer ttrhb4PixelTriplets = TkTransientTrackingRecHitBuilderESProducer {}
 include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
 include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
 
