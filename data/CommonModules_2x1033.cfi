@@ -9,8 +9,8 @@
 #include "HLTrigger/Muon/data/CommonModules_2x1033_Alt.cfi"
 
 # Use Pixel vertexing
-include "HLTrigger/Muon/data/CommonModules_2x1033_WithPixelVertexing.cfi"
+#include "HLTrigger/Muon/data/CommonModules_2x1033_WithPixelVertexing.cfi"
 
 # Use Pixel vertexing and pixel isolation
-#include "HLTrigger/Muon/data/CommonModules_2x1033_WithPixelVertexAndIso.cfi"
+include "HLTrigger/Muon/data/CommonModules_2x1033_WithPixelVertexAndIso.cfi"
 

@@ -107,7 +107,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 }
 
 sequence l1muonreco = { hltBegin }
-sequence l2muonreco = { L2MuonSeeds, doLocalMuon, L2Muons, L2MuonCandidates }
+sequence l2muonreco = { doLocalMuon, L2MuonSeeds, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { doCalo, L2MuonIsolations }
 sequence l3muonreco = { doLocalTracker, recopixelvertexing, L3muonAltReco, L3MuonCandidates }
 sequence l3muonisoreco = { regionalTrackingForMuIso2, L3MuonIsolations }
