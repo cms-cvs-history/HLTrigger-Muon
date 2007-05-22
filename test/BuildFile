@@ -17,6 +17,9 @@
 <library file="MuEnrichRenormalizer.cc" name=MuEnrichRenormalizer>
   <flags EDM_PLUGIN=1>
 </library> 
+library file="HLTMuonTurnOnAnalyzer.cc" name=HLTMuonTurnOnAnalyzer>
+  <flags EDM_PLUGIN=1>
+</library>
 
 
 
