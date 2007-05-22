@@ -1,4 +1,7 @@
 ### RecoMuon flux ##########################################################
+# Use muon-specific L3 Muon reconstruction plus pixel isolation
+#include "HLTrigger/Muon/data/CommonModules_2x1033_NoAlt.cfi"
+
 # Use muon-specific L3 Muon reconstruction plus a wide cone for L3 isolation
 #include "HLTrigger/Muon/data/CommonModules_2x1033_NoAlt.cfi"
 
