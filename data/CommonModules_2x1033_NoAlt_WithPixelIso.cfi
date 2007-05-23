@@ -80,5 +80,5 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 sequence l1muonreco = { hltBegin }
 sequence l2muonreco = { doLocalMuon, L2MuonSeeds, L2Muons, L2MuonCandidates }
 sequence l2muonisoreco = { doCalo, L2MuonIsolations }
-sequence l3muonreco = { doLocalTracker, L3Muons, L3MuonCandidates }
+sequence l3muonreco = { (doLocalPixel & doLocalStrip), L3Muons, L3MuonCandidates }
 sequence l3muonisoreco = { pixelTracks, L3MuonIsolations }
