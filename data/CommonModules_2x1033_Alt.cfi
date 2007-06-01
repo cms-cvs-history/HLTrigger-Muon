@@ -1,7 +1,7 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
 include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-include "HLTrigger/Muon/data/CaloTowersForMuons.cff"
+include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 
 ## L1 emulation
 #include "HLTrigger/Configuration/data/common/Level1Trigger.cff"
