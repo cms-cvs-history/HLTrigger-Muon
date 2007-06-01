@@ -1,7 +1,7 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
 include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-include "HLTrigger/Configuration/data/common/CaloTowers.cff"
+include "HLTrigger/Muon/data/CaloTowersForMuons.cff"
 
 ## L2 seeds from L1 input
 include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
@@ -9,7 +9,6 @@ include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
 include "RecoMuon/L2MuonProducer/data/L2MuonCandidates.cfi"
-#replace L2MuonCandidates.InputObjects = L2Muons:UpdatedAtVtx
 
 ## L2 calorimeter isolation
 module L2MuonIsolations = L2MuonIsolationProducer {
@@ -22,7 +21,7 @@ module L2MuonIsolations = L2MuonIsolationProducer {
       bool OutputMuIsoDeposits = true
 
       PSet CalExtractorParameters = {
-            untracked string CaloTowerCollectionLabel = "towerMaker"
+            untracked string CaloTowerCollectionLabel = "towerMakerForMuons"
             untracked string DepositLabel = "EcalPlusHcal"
 
             double Weight_E = 1.5
@@ -80,7 +79,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 sequence l1muonreco = { hltBegin }
 sequence l2muonrecoNocand = { doLocalMuon, L2MuonSeeds, L2Muons }
 sequence l2muonreco = { l2muonrecoNocand, L2MuonCandidates }
-sequence l2muonisoreco = { doCalo, L2MuonIsolations }
+sequence l2muonisoreco = { doRegionalCaloForMuons, L2MuonIsolations }
 sequence l3muonrecoNocand = { (doLocalPixel & doLocalStrip), L3Muons }
 sequence l3muonreco = { l3muonrecoNocand, L3MuonCandidates }
 sequence l3muonisoreco = { pixelTracks, L3MuonIsolations }

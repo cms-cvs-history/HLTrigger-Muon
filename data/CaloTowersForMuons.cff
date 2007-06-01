@@ -1,0 +1,16 @@
+//
+// Sequence for regional calorimeter reconstruction for muons
+//
+
+include "HLTrigger/Configuration/data/common/CaloTowers.cff"
+
+module towerMakerForMuons = towerMaker from "RecoJets/JetProducers/data/CaloTowerSchemeB.cfi"
+replace towerMakerForMuons.ecalInputs = { ecalRegionalMuonsRecHit:EcalRecHitsEB, ecalRegionalMuonsRecHit:EcalRecHitsEE }
+
+module caloTowersForMuons = CaloTowerCandidateCreator {
+           InputTag src = towerMakerForMuons
+           double minimumEt = -1
+           double minimumE = -1
+}
+
+sequence doRegionalCaloForMuons = { (doRegionalMuonsEcal & doLocalHcal), towerMakerForMuons, caloTowersForMuons }
