@@ -9,19 +9,19 @@
 <use name=root>
 
 <library file="HLTMuonRateAnalyzer.cc" name=HLTMuonRateAnalyzer>
-  <flags EDM_PLUGIN=1>
+  <flags SEAL_PLUGIN_NAME="HLTMuonRateAnalyzer"> 
 </library> 
 <library file="HLTMuonRateAnalyzerWithWeight.cc" name=HLTMuonRateAnalyzerWithWeight>
   <flags SEAL_PLUGIN_NAME="HLTMuonRateAnalyzerWithWeight"> 
 </library> 
 <library file="MuEnrichType1Filter.cc" name=MuEnrichType1Filter>
-  <flags EDM_PLUGIN=1>
+  <flags SEAL_PLUGIN_NAME="MuEnrichType1Filter"> 
 </library> 
 <library file="MuEnrichRenormalizer.cc" name=MuEnrichRenormalizer>
-  <flags EDM_PLUGIN=1>
+  <flags SEAL_PLUGIN_NAME="MuEnrichRenomalizer"> 
 </library> 
 <library file="HLTMuonTurnOnAnalyzer.cc" name=HLTMuonTurnOnAnalyzer>
-  <flags EDM_PLUGIN=1>
+  <flags SEAL_PLUGIN_NAME="HLTMuonTurnOnAnalyzer"> 
 </library>
 
 
