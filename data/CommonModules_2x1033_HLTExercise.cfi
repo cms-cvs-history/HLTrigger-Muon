@@ -8,7 +8,6 @@ include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
 
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
-replace L2Muons.L2TrajBuilderParameters.RefitterParameters.MuonTrajectoryUpdatorParameters.RescaleError = false 
 include "RecoMuon/L2MuonProducer/data/L2MuonCandidates.cfi"
 
 ## L2 calorimeter isolation
