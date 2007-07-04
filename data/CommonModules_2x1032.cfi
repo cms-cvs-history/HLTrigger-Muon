@@ -1,0 +1,3 @@
+### RecoMuon flux ##########################################################
+# HLT exercise 
+include "HLTrigger/Muon/data/CommonModules_2x1032_HLTExercise.cfi"
