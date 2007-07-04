@@ -1,5 +1,5 @@
 ### RecoMuon flux ##########################################################
-include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
+include "HLTrigger/Muon/data/CommonModules.cfi"
 
 ### HLT Filter flux ##########################################################
 module ZMMLevel1Seed = HLTLevel1Seed {
@@ -55,8 +55,8 @@ module ZMML3Filtered = HLTMuonDimuonFilter {
       double MinPtPair = 0.
       double MinPtMax = 7.
       double MinPtMin = 7.
-      double MinInvMass = 80.
-      double MaxInvMass = 100.
+      double MinInvMass = 70.
+      double MaxInvMass = 1.e30
       double MinAcop = -1.0
       double MaxAcop = 3.15
       double MinPtBalance = -1.0

@@ -1,5 +1,5 @@
 ### RecoMuon flux ##########################################################
-include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
+include "HLTrigger/Muon/data/CommonModules_1032.cfi"
 
 ### HLT Filter flux ##########################################################
 module SingleMuIsoLevel1Seed = HLTLevel1Seed {
@@ -47,7 +47,7 @@ module SingleMuIsoL3PreFiltered = HLTMuonPreFilter {
       double MaxEta = 2.5
       #int32 MinNhits = 5
       int32 MinNhits = 0
-      double MaxDr = 0.02
+      double MaxDr = 2.0
       double MaxDz = 9999.
       double MinPt = 11.
       double NSigmaPt = 2.2

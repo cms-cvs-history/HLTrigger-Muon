@@ -1,0 +1,3 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules_1032.cfi"
+#include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
