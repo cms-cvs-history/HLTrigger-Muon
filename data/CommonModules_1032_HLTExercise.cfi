@@ -74,7 +74,7 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-sequence l1muonreco = { hltGetDigi & (caloTriggerPrimitives, l1emulator , l1extraParticleMap) }
+sequence l1muonreco = { hltBegin }
 sequence l2muonrecoNocand = { doLocalMuon, L2MuonSeeds, L2Muons }
 sequence l2muonreco = { l2muonrecoNocand, L2MuonCandidates }
 sequence l2muonisoreco = { doRegionalCaloForMuons, L2MuonIsolations }

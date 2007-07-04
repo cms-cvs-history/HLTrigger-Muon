@@ -1,8 +1,8 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
 #TEMPORARY...
-#include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-#include "HLTrigger/Configuration/data/common/CaloTowers.cff"
+include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 ##
 
 ## L2 seeds from L1 input
@@ -77,9 +77,9 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 
 }
 
-#sequence l1muonreco = { hltGetDigi & (caloTriggerPrimitives, l1emulator , l1extraParticleMap) }
-#sequence l2muonrecoNocand = { doLocalMuon, L2MuonSeeds, L2Muons }
-#sequence l2muonreco = { l2muonrecoNocand, L2MuonCandidates }
+sequence l1muonreco = { hltBegin }
+sequence l2muonrecoNocand = { doLocalMuon, L2MuonSeeds, L2Muons }
+sequence l2muonreco = { l2muonrecoNocand, L2MuonCandidates }
 sequence l2muonisoreco = { doRegionalCaloForMuons, L2MuonIsolations }
 sequence l3muonrecoNocand = { (doLocalPixel & doLocalStrip), L3Muons }
 sequence l3muonreco = { l3muonrecoNocand, L3MuonCandidates }

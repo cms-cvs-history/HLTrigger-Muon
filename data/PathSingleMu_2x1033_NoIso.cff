@@ -3,7 +3,7 @@ include "HLTrigger/Muon/data/CommonModules_2x1033.cfi"
 
 ### HLT Filter flux ##########################################################
 module SingleMuNoIsoLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = { "A_SingleMu14" }
+            vstring L1Seeds = { "L1_SingleMu14" }
             bool andOr      = true
             bool byName     = true
             InputTag L1ExtraCollections = l1extraParticles

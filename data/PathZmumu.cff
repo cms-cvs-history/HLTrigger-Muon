@@ -3,7 +3,7 @@ include "HLTrigger/Muon/data/CommonModules.cfi"
 
 ### HLT Filter flux ##########################################################
 module ZMMLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = { "A_DoubleMu3" }
+            vstring L1Seeds = { "L1_DoubleMu3" }
             bool andOr      = true
             bool byName     = true
             InputTag L1ExtraCollections = l1extraParticles

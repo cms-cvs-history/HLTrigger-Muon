@@ -3,9 +3,9 @@ include "HLTrigger/Muon/data/CommonModules.cfi"
 
 ### HLT Filter flux ##########################################################
 module SingleMuStartupLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = {   "A_SingleMu3" 
-                                , "A_SingleMu5" 
-                                , "A_SingleMu7" 
+            vstring L1Seeds = {   "L1_SingleMu3" 
+                                , "L1_SingleMu5" 
+                                , "L1_SingleMu7" 
                               }
             bool andOr      = true
             bool byName     = true

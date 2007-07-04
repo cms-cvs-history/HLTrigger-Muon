@@ -3,7 +3,6 @@ include "HLTrigger/Muon/data/CommonModules.cfi"
 
 sequence recoHLTMuIso = {
     #L1 muon
-            #l1emulator, l1extra
             l1muonreco
     #L2 muon
           & l2muonreco
