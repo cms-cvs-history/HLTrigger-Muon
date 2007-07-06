@@ -1,5 +1,5 @@
 ### RecoMuon flux ##########################################################
-include "HLTrigger/Muon/data/CommonModules.cfi"
+include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
 module SameSignMuLevel1Seed = HLTLevel1Seed {

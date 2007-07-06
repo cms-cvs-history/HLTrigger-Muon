@@ -1,5 +1,5 @@
 ### RecoMuon flux ##########################################################
-include "HLTrigger/Muon/data/CommonModules_1032.cfi"
+include "HLTrigger/Muon/data/CommonModules_1032.cff"
 
 ### HLT Filter flux ##########################################################
 module DiMuonNoIsoLevel1Seed = HLTLevel1Seed {
