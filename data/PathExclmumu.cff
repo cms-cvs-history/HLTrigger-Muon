@@ -1,0 +1,93 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules.cfi"
+
+### HLT Filter flux ##########################################################
+module ExclMMLevel1Seed = HLTLevel1Seed {
+            vstring L1Seeds = { "L1_DoubleMu3" }
+            bool andOr      = true
+            bool byName     = true
+            InputTag L1ExtraCollections = l1extraParticles
+            InputTag L1ExtraParticleMap = l1extraParticleMap
+            InputTag L1GTReadoutRecord = l1extraParticleMap
+}
+
+module ExclMML1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = ExclMMLevel1Seed
+
+      double MaxEta = 2.5
+      double MinPt = 0.
+      int32 MinQuality = -1
+      int32 MinN = 2
+}
+
+module ExclMML2Filtered = HLTMuonDimuonFilter {
+      InputTag CandTag = L2MuonCandidates
+
+      bool FastAccept = false
+      double MaxEta = 2.5
+      #int32 MinNhits = 4
+      int32 MinNhits = 0
+      double MaxDr = 100.
+      double MaxDz = 9999.
+      int32  ChargeOpt = 0
+      double MinPtPair = 0.
+      double MinPtMax = 3.
+      double MinPtMin = 3.
+      double MinInvMass = -1.0
+      double MaxInvMass = 999999.
+      double MinAcop = -1.0
+      double MaxAcop = 3.15
+      double MinPtBalance = -1.0
+      double MaxPtBalance = 999999.
+      double NSigmaPt = 0.
+}
+
+module ExclDiMuonIsoL2IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = ExclMML2Filtered
+      InputTag IsoTag = L2MuonIsolations
+
+      int32 MinN = 1
+}
+
+
+module ExclMML3Filtered = HLTMuonDimuonFilter {
+      InputTag CandTag = L3MuonCandidates
+
+      bool FastAccept = false
+      double MaxEta = 2.5
+      #int32 MinNhits = 4
+      int32 MinNhits = 0
+      double MaxDr = 2.
+      double MaxDz = 9999.
+      int32  ChargeOpt = 0
+      double MinPtPair = 0.
+      double MinPtMax = 4.
+      double MinPtMin = 4.
+      double MinInvMass = -1.0
+      double MaxInvMass = 999999.0
+      double MinAcop = 3.0
+      double MaxAcop = 3.2
+      double MinPtBalance = -1.0
+      double MaxPtBalance = 2.0
+      double NSigmaPt = 0.
+}
+
+module ExclDiMuonIsoL3IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = ExclMML3Filtered
+      InputTag IsoTag = L3MuonIsolations
+
+      int32 MinN = 1
+}
+
+sequence diMuonExcl = {
+    #L1 muon
+            l1muonreco & ExclMMLevel1Seed & ExclMML1Filtered
+    #L2 muon
+          & l2muonreco & ExclMML2Filtered
+    #L2 muon isolation
+          & l2muonisoreco & ExclDiMuonIsoL2IsoFiltered
+    #L3 muon
+          & l3muonreco & ExclMML3Filtered
+    #L3 muon isolation
+          & l3muonisoreco & ExclDiMuonIsoL3IsoFiltered
+}
