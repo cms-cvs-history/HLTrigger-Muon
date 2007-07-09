@@ -21,7 +21,7 @@ module ExclMML1Filtered = HLTMuonL1Filter {
 }
 
 module ExclMML2Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -44,14 +44,14 @@ module ExclMML2Filtered = HLTMuonDimuonFilter {
 
 module ExclDiMuonIsoL2IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = ExclMML2Filtered
-      InputTag IsoTag = L2MuonIsolations
+      InputTag IsoTag = hltL2MuonIsolations
 
       int32 MinN = 1
 }
 
 
 module ExclMML3Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -74,7 +74,7 @@ module ExclMML3Filtered = HLTMuonDimuonFilter {
 
 module ExclDiMuonIsoL3IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = ExclMML3Filtered
-      InputTag IsoTag = L3MuonIsolations
+      InputTag IsoTag = hltL3MuonIsolations
 
       int32 MinN = 1
 }

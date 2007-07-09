@@ -21,7 +21,7 @@ module SingleMuIsoL1Filtered = HLTMuonL1Filter {
 }
 
 module SingleMuIsoL2PreFiltered = HLTMuonPreFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       int32 MinN = 1
       double MaxEta = 2.5
@@ -35,13 +35,13 @@ module SingleMuIsoL2PreFiltered = HLTMuonPreFilter {
 
 module SingleMuIsoL2IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = SingleMuIsoL2PreFiltered
-      InputTag IsoTag = L2MuonIsolations
+      InputTag IsoTag = hltL2MuonIsolations
 
       int32 MinN = 1
 }
 
 module SingleMuIsoL3PreFiltered = HLTMuonPreFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       int32 MinN = 1
       double MaxEta = 2.5
@@ -55,7 +55,7 @@ module SingleMuIsoL3PreFiltered = HLTMuonPreFilter {
 
 module SingleMuIsoL3IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = SingleMuIsoL3PreFiltered
-      InputTag IsoTag = L3MuonIsolations
+      InputTag IsoTag = hltL3MuonIsolations
 
       int32 MinN = 1
 }

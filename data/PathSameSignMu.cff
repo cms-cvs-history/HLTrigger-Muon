@@ -21,7 +21,7 @@ module SameSignMuL1Filtered = HLTMuonL1Filter {
 }
 
 module SameSignMuL2PreFiltered = HLTMuonDimuonFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -44,13 +44,13 @@ module SameSignMuL2PreFiltered = HLTMuonDimuonFilter {
 
 module SameSignMuL2IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = SameSignMuL2PreFiltered
-      InputTag IsoTag = L2MuonIsolations
+      InputTag IsoTag = hltL2MuonIsolations
 
       int32 MinN = 1
 }
 
 module SameSignMuL3PreFiltered = HLTMuonDimuonFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -73,7 +73,7 @@ module SameSignMuL3PreFiltered = HLTMuonDimuonFilter {
 
 module SameSignMuL3IsoFiltered = HLTMuonIsoFilter {
       InputTag CandTag = SameSignMuL3PreFiltered
-      InputTag IsoTag = L3MuonIsolations
+      InputTag IsoTag = hltL3MuonIsolations
 
       int32 MinN = 1
 }

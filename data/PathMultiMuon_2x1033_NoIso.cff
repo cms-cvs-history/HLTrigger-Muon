@@ -21,7 +21,7 @@ module multiMuonNoIsoL1Filtered = HLTMuonL1Filter {
 }
 
 module multiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       int32 MinN = 3
       double MaxEta = 2.5
@@ -34,7 +34,7 @@ module multiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
 }
 
 module multiMuonNoIsoL3PreFiltered = HLTMuonPreFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       int32 MinN = 3
       double MaxEta = 2.5

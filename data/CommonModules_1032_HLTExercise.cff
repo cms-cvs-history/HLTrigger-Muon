@@ -6,15 +6,21 @@ include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 ##
 
 ## L2 seeds from L1 input
-include "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
+module hltL2MuonSeeds = L2MuonSeeds from "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
 
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
-include "RecoMuon/L2MuonProducer/data/L2MuonCandidates.cfi"
+module hltL2Muons = L2Muons from  "RecoMuon/L2MuonProducer/data/L2Muons.cfi"
+replace hltL2Muons.InputObjects = hltL2MuonSeeds
+
+## L2 candidates
+module hltL2MuonCandidates = L2MuonCandidateProducer {
+    InputTag InputObjects = hltL2Muons:UpdatedAtVtx
+}
 
 ## L2 calorimeter isolation
-module L2MuonIsolations = L2MuonIsolationProducer {
-      InputTag StandAloneCollectionLabel = L2Muons:UpdatedAtVtx
+module hltL2MuonIsolations = L2MuonIsolationProducer {
+      InputTag StandAloneCollectionLabel = hltL2Muons:UpdatedAtVtx
 
       vdouble EtaBounds = { 0.0435, 0.1305, 0.2175, 0.3045, 0.3915, 0.4785, 0.5655, 0.6525, 0.7395, 0.8265, 0.9135, 1.0005, 1.0875, 1.1745, 1.2615, 1.3485, 1.4355, 1.5225, 1.6095, 1.6965, 1.7850, 1.8800, 1.9865, 2.1075, 2.2470, 2.4110 }
       vdouble ConeSizes = { 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24, 0.24 }
@@ -43,14 +49,20 @@ module L2MuonIsolations = L2MuonIsolationProducer {
 
 ## L3 regional reconstruction
 include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
-include "RecoMuon/L3MuonProducer/data/L3MuonCandidates.cfi"
+module hltL3Muons = L3Muons from "RecoMuon/L3MuonProducer/data/L3Muons.cfi"
+replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
+
+## L3 candidates
+module hltL3MuonCandidates = L3MuonCandidateProducer {
+    InputTag InputObjects = hltL3Muons
+}
 
 ## Pixel tracking for muon isolation
 include "HLTrigger/Configuration/data/common/Vertexing.cff"
 
 ## L3 track isolation
-module L3MuonIsolations = L3MuonIsolationProducer {
-      InputTag inputMuonCollection = L3Muons
+module hltL3MuonIsolations = L3MuonIsolationProducer {
+      InputTag inputMuonCollection = hltL3Muons
 
       PSet CutsPSet = {
             string ComponentName = "SimpleCuts"
@@ -76,9 +88,9 @@ module L3MuonIsolations = L3MuonIsolationProducer {
 }
 
 sequence l1muonreco = { hltBegin }
-sequence l2muonrecoNocand = { doLocalMuon, L2MuonSeeds, L2Muons }
-sequence l2muonreco = { l2muonrecoNocand, L2MuonCandidates }
-sequence l2muonisoreco = { doRegionalCaloForMuons, L2MuonIsolations }
-sequence l3muonrecoNocand = { (doLocalPixel & doLocalStrip), L3Muons }
-sequence l3muonreco = { l3muonrecoNocand, L3MuonCandidates }
-sequence l3muonisoreco = { pixelTracks, L3MuonIsolations }
+sequence l2muonrecoNocand = { doLocalMuon, hltL2MuonSeeds, hltL2Muons }
+sequence l2muonreco = { l2muonrecoNocand, hltL2MuonCandidates }
+sequence l2muonisoreco = { doRegionalCaloForMuons, hltL2MuonIsolations }
+sequence l3muonrecoNocand = { (doLocalPixel & doLocalStrip), hltL3Muons }
+sequence l3muonreco = { l3muonrecoNocand, hltL3MuonCandidates }
+sequence l3muonisoreco = { pixelTracks, hltL3MuonIsolations }

@@ -21,7 +21,7 @@ module ZMML1Filtered = HLTMuonL1Filter {
 }
 
 module ZMML2Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -43,7 +43,7 @@ module ZMML2Filtered = HLTMuonDimuonFilter {
 }
 
 module ZMML3Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5

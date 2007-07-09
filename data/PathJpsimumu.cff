@@ -21,7 +21,7 @@ module JpsiMML1Filtered = HLTMuonL1Filter {
 }
 
 module JpsiMML2Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L2MuonCandidates
+      InputTag CandTag = hltL2MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -43,7 +43,7 @@ module JpsiMML2Filtered = HLTMuonDimuonFilter {
 }
 
 module JpsiMML3Filtered = HLTMuonDimuonFilter {
-      InputTag CandTag = L3MuonCandidates
+      InputTag CandTag = hltL3MuonCandidates
 
       bool FastAccept = false
       double MaxEta = 2.5
