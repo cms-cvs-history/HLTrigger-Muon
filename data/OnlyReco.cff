@@ -1,5 +1,5 @@
 ### RecoMuon flux ##########################################################
-include "HLTrigger/Muon/data/CommonModules.cfi"
+include "HLTrigger/Muon/data/CommonModules.cff"
 
 sequence recoHLTMuIso = {
     #L1 muon
