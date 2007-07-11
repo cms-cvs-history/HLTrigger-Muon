@@ -1,6 +1,5 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
-include "Configuration/StandardSequences/data/FakeConditions.cff"
 include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 ##
