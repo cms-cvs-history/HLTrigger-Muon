@@ -1,0 +1,59 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules_1032.cff"
+
+### HLT Filter flux ##########################################################
+module SingleMuPrescale77Level1Seed = HLTLevel1Seed {
+            vstring L1Seeds = { "L1_SingleMu7" }
+            bool andOr      = true
+            bool byName     = true
+            InputTag L1ExtraCollections = l1extraParticles
+            InputTag L1ExtraParticleMap = l1extraParticleMap
+            InputTag L1GTReadoutRecord = l1extraParticleMap
+}
+
+module preSingleMuPrescale77 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace preSingleMuPrescale77.prescaleFactor = 400
+
+module SingleMuPrescale77L1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = SingleMuPrescale77Level1Seed
+
+      double MaxEta = 2.5
+      double MinPt = 0.
+      int32 MinQuality = -1
+      int32 MinN = 1
+}
+
+module SingleMuPrescale77L2PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = hltL2MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 4
+      int32 MinNhits = 0
+      double MaxDr = 9999.
+      double MaxDz = 9999.
+      double MinPt = 7.
+      double NSigmaPt = 3.9
+}
+
+module SingleMuPrescale77L3PreFiltered = HLTMuonPreFilter {
+      InputTag CandTag = hltL3MuonCandidates
+
+      int32 MinN = 1
+      double MaxEta = 2.5
+      #int32 MinNhits = 5
+      int32 MinNhits = 0
+      double MaxDr = 2.0
+      double MaxDz = 9999.
+      double MinPt = 7.
+      double NSigmaPt = 2.2
+}
+
+sequence singleMuPrescale77 = {
+    #L1 muon
+            l1muonreco & preSingleMuPrescale77 & SingleMuPrescale77Level1Seed & SingleMuPrescale77L1Filtered
+    #L2 muon
+          & l2muonreco & SingleMuPrescale77L2PreFiltered
+    #L3 muon
+          & l3muonreco & SingleMuPrescale77L3PreFiltered
+}
