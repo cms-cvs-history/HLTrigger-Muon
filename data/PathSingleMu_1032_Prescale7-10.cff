@@ -32,7 +32,7 @@ module SingleMuPrescale710L2PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 9999.
       double MaxDz = 9999.
-      double MinPt = 7.
+      double MinPt = 10.
       double NSigmaPt = 3.9
 }
 
@@ -45,7 +45,7 @@ module SingleMuPrescale710L3PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 2.0
       double MaxDz = 9999.
-      double MinPt = 7.
+      double MinPt = 10.
       double NSigmaPt = 2.2
 }
 
