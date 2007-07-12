@@ -12,7 +12,7 @@ module SingleMuPrescale710Level1Seed = HLTLevel1Seed {
 }
 
 module preSingleMuPrescale710 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-replace preSingleMuPrescale710.prescaleFactor = 400
+replace preSingleMuPrescale710.prescaleFactor = 100
 
 module SingleMuPrescale710L1Filtered = HLTMuonL1Filter {
       InputTag CandTag = SingleMuPrescale710Level1Seed
