@@ -29,7 +29,7 @@ module SingleMuPrescale5L2PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 9999.
       double MaxDz = 9999.
-      double MinPt = 16.
+      double MinPt = 5.
       double NSigmaPt = 3.9
 }
 
@@ -42,7 +42,7 @@ module SingleMuPrescale5L3PreFiltered = HLTMuonPreFilter {
       int32 MinNhits = 0
       double MaxDr = 2.0
       double MaxDz = 9999.
-      double MinPt = 16.
+      double MinPt = 5.
       double NSigmaPt = 2.2
 }
 
