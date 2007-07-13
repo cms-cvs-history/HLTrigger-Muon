@@ -11,6 +11,8 @@ module DiMuonIsoLevel1Seed = HLTLevel1Seed {
             InputTag L1GTReadoutRecord = l1extraParticleMap
 }
 
+module prescaleDiMuonIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
 module DiMuonIsoL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = DiMuonIsoLevel1Seed
 
@@ -62,7 +64,7 @@ module DiMuonIsoL3IsoFiltered = HLTMuonIsoFilter {
 
 sequence diMuonIso = {
     #L1 muon
-            l1muonreco & DiMuonIsoLevel1Seed & DiMuonIsoL1Filtered
+            prescaleDiMuonIso & l1muonreco & DiMuonIsoLevel1Seed & DiMuonIsoL1Filtered
     #L2 muon
           & l2muonreco & DiMuonIsoL2PreFiltered
     #L2 muon isolation

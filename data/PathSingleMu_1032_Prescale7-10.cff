@@ -51,7 +51,7 @@ module SingleMuPrescale710L3PreFiltered = HLTMuonPreFilter {
 
 sequence singleMuPrescale710 = {
     #L1 muon
-            l1muonreco & preSingleMuPrescale710 & SingleMuPrescale710Level1Seed & SingleMuPrescale710L1Filtered
+            preSingleMuPrescale710 & l1muonreco & SingleMuPrescale710Level1Seed & SingleMuPrescale710L1Filtered
     #L2 muon
           & l2muonreco & SingleMuPrescale710L2PreFiltered
     #L3 muon

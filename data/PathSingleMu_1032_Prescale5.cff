@@ -11,6 +11,8 @@ module SingleMuPrescale5Level1Seed = HLTLevel1Seed {
             InputTag L1GTReadoutRecord = l1extraParticleMap
 }
 
+module prescaleSingleMuPrescale5 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
 module SingleMuPrescale5L1Filtered = HLTMuonL1Filter {
       InputTag CandTag = SingleMuPrescale5Level1Seed
 
@@ -48,6 +50,7 @@ module SingleMuPrescale5L3PreFiltered = HLTMuonPreFilter {
 
 sequence singleMuPrescale5 = {
     #L1 muon
+            prescaleSingleMuPrescale5 &
             l1muonreco & SingleMuPrescale5Level1Seed & SingleMuPrescale5L1Filtered
     #L2 muon
           & l2muonreco & SingleMuPrescale5L2PreFiltered

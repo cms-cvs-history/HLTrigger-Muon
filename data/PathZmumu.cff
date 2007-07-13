@@ -11,6 +11,8 @@ module ZMMLevel1Seed = HLTLevel1Seed {
             InputTag L1GTReadoutRecord = l1extraParticleMap
 }
 
+module prescaleZMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
 module ZMML1Filtered = HLTMuonL1Filter {
       InputTag CandTag = ZMMLevel1Seed
 
@@ -66,6 +68,7 @@ module ZMML3Filtered = HLTMuonDimuonFilter {
 
 sequence zMM = {
     #L1 muon
+            prescaleZMM &
             l1muonreco & ZMMLevel1Seed & ZMML1Filtered
     #L2 muon
           & l2muonreco & ZMML2Filtered

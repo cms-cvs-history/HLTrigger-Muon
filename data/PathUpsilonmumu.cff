@@ -11,6 +11,8 @@ module UpsilonMMLevel1Seed = HLTLevel1Seed {
             InputTag L1GTReadoutRecord = l1extraParticleMap
 }
 
+module prescaleUpsilonMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
 module UpsilonMML1Filtered = HLTMuonL1Filter {
       InputTag CandTag = UpsilonMMLevel1Seed
 
@@ -66,6 +68,7 @@ module UpsilonMML3Filtered = HLTMuonDimuonFilter {
 
 sequence upsilonMM = {
     #L1 muon
+            prescaleUpsilonMM &
             l1muonreco & UpsilonMMLevel1Seed & UpsilonMML1Filtered
     #L2 muon
           & l2muonreco & UpsilonMML2Filtered

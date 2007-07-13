@@ -11,6 +11,8 @@ module SameSignMuLevel1Seed = HLTLevel1Seed {
             InputTag L1GTReadoutRecord = l1extraParticleMap
 }
 
+module prescaleSameSignMu = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
 module SameSignMuL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = SameSignMuLevel1Seed
 
@@ -80,6 +82,7 @@ module SameSignMuL3IsoFiltered = HLTMuonIsoFilter {
 
 sequence sameSignMu = {
     #L1 muon
+            prescaleSameSignMu &
             l1muonreco & SameSignMuLevel1Seed & SameSignMuL1Filtered
     #L2 muon
           & l2muonreco & SameSignMuL2PreFiltered
