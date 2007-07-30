@@ -1,0 +1,30 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/CommonModules_1032.cff"
+
+### HLT Filter flux ##########################################################
+#replace l1extraParticleMap.L1_SingleMu3_prescale = 4000
+module MuLevel1PathLevel1Seed = HLTLevel1Seed {
+            vstring L1Seeds = { "L1_SingleMu3" }
+            bool andOr      = true
+            bool byName     = true
+            InputTag L1ExtraCollections = l1extraParticles
+            InputTag L1ExtraParticleMap = l1extraParticleMap
+            InputTag L1GTReadoutRecord = l1extraParticleMap
+}
+
+module prescaleMuLevel1Path = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
+module MuLevel1PathL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = MuLevel1PathLevel1Seed
+
+      double MaxEta = 2.5
+      double MinPt = 0.
+      int32 MinQuality = -1
+      int32 MinN = 1
+}
+
+sequence muLevel1Path = {
+    #L1 muon
+            prescaleMuLevel1Path &
+            l1muonreco & MuLevel1PathLevel1Seed & MuLevel1PathL1Filtered
+}
