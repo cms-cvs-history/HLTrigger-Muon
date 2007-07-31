@@ -2,9 +2,11 @@
 include "HLTrigger/Muon/data/CommonModules_1032.cff"
 
 ### HLT Filter flux ##########################################################
-#replace l1extraParticleMap.L1_SingleMu3_prescale = 4000
 module MuLevel1PathLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = { "L1_SingleMu3" }
+            vstring L1Seeds = {  "L1_SingleMu3"
+                               , "L1_SingleMu5" 
+                               , "L1_SingleMu7" 
+                              }
             bool andOr      = true
             bool byName     = true
             InputTag L1ExtraCollections = l1extraParticles
