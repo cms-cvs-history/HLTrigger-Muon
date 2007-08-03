@@ -6,6 +6,7 @@ module MuLevel1PathLevel1Seed = HLTLevel1Seed {
             vstring L1Seeds = {  "L1_SingleMu3"
                                , "L1_SingleMu5" 
                                , "L1_SingleMu7" 
+                               , "L1_DoubleMu3" 
                               }
             bool andOr      = true
             bool byName     = true
