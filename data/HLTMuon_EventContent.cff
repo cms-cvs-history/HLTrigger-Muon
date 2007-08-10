@@ -1,0 +1,37 @@
+# Full Event content
+block HLTMuonFEVT = {
+    untracked vstring outputCommands = {
+	"keep *_hltL2MuonSeeds_*_*",
+	"keep *_hltL2Muons_*_*",
+	"keep *_hltL3Muons_*_*",
+	"keep *_hltL2MuonCandidates_*_*",
+	"keep *_hltL3MuonCandidates_*_*",
+	"keep *_hltL2MuonIsolations_*_*",
+	"keep *_hltL3MuonIsolations_*_*"
+    }
+}
+
+# RECO content
+block HLTMuonRECO = {
+    untracked vstring outputCommands = {
+	"keep *_hltL2MuonSeeds_*_*",
+	"keep *_hltL2Muons_*_*",
+	"keep *_hltL3Muons_*_*",
+	"keep *_hltL2MuonCandidates_*_*",
+	"keep *_hltL3MuonCandidates_*_*",
+	"keep *_hltL2MuonIsolations_*_*",
+	"keep *_hltL3MuonIsolations_*_*"
+    }
+}
+
+# AOD content
+block HLTMuonAOD = {
+    untracked vstring outputCommands = {
+	"keep recoTracks_hltL2Muons_*_*",
+	"keep recoTracks_hltL3Muons_*_*",
+	"keep recoRecoChargedCandidates_hltL2MuonCandidates_*_*",
+	"keep recoRecoChargedCandidates_hltL3MuonCandidates_*_*",
+	"keep recoTracksbool*_hltL2MuonIsolations_*_*",
+	"keep recoTracksbool*_hltL3MuonIsolations_*_*"
+    }
+}
