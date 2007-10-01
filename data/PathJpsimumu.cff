@@ -2,14 +2,9 @@
 include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
-module JpsiMMLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = { "L1_DoubleMu3" }
-            bool andOr      = true
-            bool byName     = true
-            InputTag L1ExtraCollections = l1extraParticles
-            InputTag L1ExtraParticleMap = l1extraParticleMap
-            InputTag L1GTReadoutRecord = l1extraParticleMap
-}
+module JpsiMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace JpsiMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
+
 
 module prescaleJPsiMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 

@@ -2,18 +2,9 @@
 include "HLTrigger/Muon/data/CommonModules_1032.cff"
 
 ### HLT Filter flux ##########################################################
-module MuLevel1PathLevel1Seed = HLTLevel1Seed {
-            vstring L1Seeds = {  "L1_SingleMu3"
-                               , "L1_SingleMu5" 
-                               , "L1_SingleMu7" 
-                               , "L1_DoubleMu3" 
-                              }
-            bool andOr      = true
-            bool byName     = true
-            InputTag L1ExtraCollections = l1extraParticles
-            InputTag L1ExtraParticleMap = l1extraParticleMap
-            InputTag L1GTReadoutRecord = l1extraParticleMap
-}
+module MuLevel1PathLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace MuLevel1PathLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu3 OR L1_SingleMu5 OR L1_SingleMu7 OR L1_DoubleMu3" 
+
 
 module prescaleMuLevel1Path = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
