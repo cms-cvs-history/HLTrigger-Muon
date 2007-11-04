@@ -1,6 +1,6 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
-include "HLTrigger/Configuration/data/common/HLTSetup.cff"
+# include "HLTrigger/Configuration/data/common/HLTSetup.cff"
 include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 ##
 
