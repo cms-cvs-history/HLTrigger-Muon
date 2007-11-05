@@ -1,0 +1,29 @@
+### RecoMuon flux ##########################################################
+include "HLTrigger/Muon/data/PathDiMuon_1032_NoIso.cff"
+
+### HLT Filter flux ##########################################################
+
+module prescaleDiMuonNoIso_RelaxedVtx2mm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+
+module DiMuonNoIsoL3PreFiltered_RelaxedVtx2mm = HLTMuonPreFilter {
+      InputTag CandTag = hltL3MuonCandidates
+
+      int32 MinN = 2
+      double MaxEta = 2.5
+      #int32 MinNhits = 5
+      int32 MinNhits = 0
+      double MaxDr = 0.2
+      double MaxDz = 9999.
+      double MinPt = 3.
+      double NSigmaPt = 2.2
+}
+
+sequence diMuonNoIso_RelaxedVtx2mm = {
+    #L1 muon
+            prescaleDiMuonNoIso_RelaxedVtx2mm &
+            l1muonreco & DiMuonNoIsoLevel1Seed & DiMuonNoIsoL1Filtered
+    #L2 muon
+          & l2muonreco & DiMuonNoIsoL2PreFiltered
+    #L3 muon
+          & l3muonreco & DiMuonNoIsoL3PreFiltered_RelaxedVtx2mm
+}
