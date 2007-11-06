@@ -3,9 +3,9 @@ include "HLTrigger/Muon/data/PathDiMuon_1032_NoIso.cff"
 
 ### HLT Filter flux ##########################################################
 
-module prescaleDiMuonNoIso_RelaxedVtx2cm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module prescaleDiMuonNoIsoRelaxedVtx2cm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module DiMuonNoIsoL3PreFiltered_RelaxedVtx2cm = HLTMuonPreFilter {
+module DiMuonNoIsoL3PreFilteredRelaxedVtx2cm = HLTMuonPreFilter {
       InputTag CandTag = hltL3MuonCandidates
 
       int32 MinN = 2
@@ -18,12 +18,12 @@ module DiMuonNoIsoL3PreFiltered_RelaxedVtx2cm = HLTMuonPreFilter {
       double NSigmaPt = 2.2
 }
 
-sequence diMuonNoIso_RelaxedVtx2cm = {
+sequence diMuonNoIsoRelaxedVtx2cm = {
     #L1 muon
-            prescaleDiMuonNoIso_RelaxedVtx2cm &
+            prescaleDiMuonNoIsoRelaxedVtx2cm &
             l1muonreco & DiMuonNoIsoLevel1Seed & DiMuonNoIsoL1Filtered
     #L2 muon
           & l2muonreco & DiMuonNoIsoL2PreFiltered
     #L3 muon
-          & l3muonreco & DiMuonNoIsoL3PreFiltered_RelaxedVtx2cm
+          & l3muonreco & DiMuonNoIsoL3PreFilteredRelaxedVtx2cm
 }
