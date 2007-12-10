@@ -27,11 +27,5 @@ block HLTMuonRECO = {
 # AOD content
 block HLTMuonAOD = {
     untracked vstring outputCommands = {
-	"keep recoTracks_hltL2Muons_*_*",
-	"keep recoTracks_hltL3Muons_*_*",
-	"keep recoRecoChargedCandidates_hltL2MuonCandidates_*_*",
-	"keep recoRecoChargedCandidates_hltL3MuonCandidates_*_*",
-	"keep recoTracksbool*_hltL2MuonIsolations_*_*",
-	"keep recoTracksbool*_hltL3MuonIsolations_*_*"
     }
 }
