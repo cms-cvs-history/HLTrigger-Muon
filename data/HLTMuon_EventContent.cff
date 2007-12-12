@@ -26,7 +26,7 @@ block HLTMuonRECO = {
 
 # AOD content
 block HLTMuonAOD = {
-    VInputTag triggerCollection = {
+    VInputTag triggerCollections = {
 	hltL3MuonCandidates,
 	hltL2MuonCandidates
     }
