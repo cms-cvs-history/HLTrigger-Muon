@@ -26,6 +26,31 @@ block HLTMuonRECO = {
 
 # AOD content
 block HLTMuonAOD = {
+    VInputTag triggerCollection = {
+	hltL3MuonCandidates,
+	hltL2MuonCandidates
+    }
+    VInputTag triggerFilters = {
+        SingleMuIsoL3IsoFiltered,
+        SingleMuNoIsoL3PreFiltered,
+        DiMuonIsoL3IsoFiltered,
+	DiMuonNoIsoL3PreFiltered,
+	ZMML3Filtered,
+	JpsiMML3Filtered,
+	UpsilonMML3Filtered,
+	multiMuonNoIsoL3PreFiltered,
+	SameSignMuL3IsoFiltered,
+	ExclDiMuonIsoL3IsoFiltered,
+	SingleMuPrescale3L3PreFiltered,
+	SingleMuPrescale5L3PreFiltered,
+	SingleMuPrescale710L3PreFiltered,
+	SingleMuPrescale77L3PreFiltered,
+	DiMuonNoIsoL3PreFilteredRelaxedVtx2cm,
+	DiMuonNoIsoL3PreFilteredRelaxedVtx2mm,
+	SingleMuNoIsoL3PreFilteredRelaxedVtx2cm,
+	SingleMuNoIsoL3PreFilteredRelaxedVtx2mm,
+	SingleMuStartupL2PreFiltered
+    }
     untracked vstring outputCommands = {
     }
 }
