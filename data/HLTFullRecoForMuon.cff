@@ -1,0 +1,10 @@
+## L2 seeds from L1 input
+module hltL2MuonSeeds = L2MuonSeeds from "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
+
+## L3 regional reconstruction
+include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
+module hltL3Muons = L3Muons from "RecoMuon/L3MuonProducer/data/L3Muons.cfi"
+replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
+
+## Pixel tracking for muon isolation
+include "HLTrigger/Configuration/data/common/Vertexing.cff"
