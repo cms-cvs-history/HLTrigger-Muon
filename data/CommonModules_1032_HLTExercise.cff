@@ -1,11 +1,10 @@
 ### RecoMuon flux ##########################################################
 ## Common HLT stuff
-# include "HLTrigger/Configuration/data/common/HLTSetup.cff"
-include "HLTrigger/Configuration/data/common/CaloTowers.cff"
-##
 
-## L2 seeds from L1 input
-module hltL2MuonSeeds = L2MuonSeeds from "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
+include "HLTrigger/Configuration/data/common/CaloTowers.cff"
+
+#to be commented when global steering available
+include "HLTrigger/Muon/data/common/HLTFullRecoForMuon.cff"
 
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
@@ -46,18 +45,10 @@ module hltL2MuonIsolations = L2MuonIsolationProducer {
 
 }
 
-## L3 regional reconstruction
-include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
-module hltL3Muons = L3Muons from "RecoMuon/L3MuonProducer/data/L3Muons.cfi"
-replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
-
 ## L3 candidates
 module hltL3MuonCandidates = L3MuonCandidateProducer {
     InputTag InputObjects = hltL3Muons
 }
-
-## Pixel tracking for muon isolation
-include "HLTrigger/Configuration/data/common/Vertexing.cff"
 
 ## L3 track isolation
 module hltL3MuonIsolations = L3MuonIsolationProducer {
@@ -90,6 +81,6 @@ sequence l1muonreco = { hltBegin }
 sequence l2muonrecoNocand = { doLocalMuon, hltL2MuonSeeds, hltL2Muons }
 sequence l2muonreco = { l2muonrecoNocand, hltL2MuonCandidates }
 sequence l2muonisoreco = { doRegionalCaloForMuons, hltL2MuonIsolations }
-sequence l3muonrecoNocand = { (doLocalPixel & doLocalStrip), hltL3Muons }
+sequence l3muonrecoNocand = { doLocalPixel & doLocalStrip & hltL3MuonTracks }
 sequence l3muonreco = { l3muonrecoNocand, hltL3MuonCandidates }
-sequence l3muonisoreco = { pixelTracks, hltL3MuonIsolations }
+sequence l3muonisoreco = { pixelTracksForMuons, hltL3MuonIsolations }
