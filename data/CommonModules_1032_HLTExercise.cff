@@ -3,9 +3,6 @@
 
 include "HLTrigger/Configuration/data/common/CaloTowers.cff"
 
-#to be commented when global steering available
-include "HLTrigger/Muon/data/HLTFullRecoForMuon.cff"
-
 ## L2 reconstruction
 include "RecoMuon/L2MuonProducer/data/L2Muons.cff"
 module hltL2Muons = L2Muons from  "RecoMuon/L2MuonProducer/data/L2Muons.cfi"
