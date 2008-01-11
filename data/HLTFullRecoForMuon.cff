@@ -8,3 +8,6 @@ replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
 
 ## Pixel tracking for muon isolation
 include "HLTrigger/Configuration/data/common/Vertexing.cff"
+
+sequence hltL3MuonTracks = { hltL3Muons }
+sequence pixelTracksForMuons = { pixelTracks }
