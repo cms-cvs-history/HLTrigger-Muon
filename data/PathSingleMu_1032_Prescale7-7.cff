@@ -17,9 +17,10 @@ module SingleMuPrescale77L1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuPrescale77L2PreFiltered = HLTMuonPreFilter {
+module SingleMuPrescale77L2PreFiltered = HLTMuonL2PreFilter {
       InputTag CandTag = hltL2MuonCandidates
-
+      InputTag SeedTag = hltL2MuonSeeds
+      InputTag PreviousCandTag = SingleMuPrescale77L1Filtered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -30,9 +31,10 @@ module SingleMuPrescale77L2PreFiltered = HLTMuonPreFilter {
       double NSigmaPt = 3.9
 }
 
-module SingleMuPrescale77L3PreFiltered = HLTMuonPreFilter {
+module SingleMuPrescale77L3PreFiltered = HLTMuonL3PreFilter {
       InputTag CandTag = hltL3MuonCandidates
-
+      InputTag LinksTag = hltL3Muons
+      InputTag PreviousCandTag = SingleMuPrescale77L2PreFiltered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 5

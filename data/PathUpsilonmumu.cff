@@ -16,8 +16,10 @@ module UpsilonMML1Filtered = HLTMuonL1Filter {
       int32 MinN = 2
 }
 
-module UpsilonMML2Filtered = HLTMuonDimuonFilter {
+module UpsilonMML2Filtered = HLTMuonDimuonL2Filter {
       InputTag CandTag = hltL2MuonCandidates
+      InputTag PreviousCandTag = UpsilonMML1Filtered
+      InputTag SeedTag = hltL2MuonSeeds
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -38,9 +40,10 @@ module UpsilonMML2Filtered = HLTMuonDimuonFilter {
       double NSigmaPt = 0.
 }
 
-module UpsilonMML3Filtered = HLTMuonDimuonFilter {
+module UpsilonMML3Filtered = HLTMuonDimuonL3Filter {
       InputTag CandTag = hltL3MuonCandidates
-
+      InputTag PreviousCandTag = UpsilonMML2Filtered
+      InputTag LinksTag = hltL3Muons
       bool FastAccept = false
       double MaxEta = 2.5
       #int32 MinNhits = 4

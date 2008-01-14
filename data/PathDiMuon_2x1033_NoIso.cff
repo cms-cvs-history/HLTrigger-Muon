@@ -8,16 +8,16 @@ replace DiMuonNoIsoLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 module prescaleDiMuonNoIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 module DiMuonNoIsoL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = DiMuonNoIsoLevel1Seed
-
       double MaxEta = 2.5
       double MinPt = 0.
       int32 MinQuality = -1
       int32 MinN = 2
 }
 
-module DiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
+module DiMuonNoIsoL2PreFiltered = HLTMuonL2PreFilter {
       InputTag CandTag = hltL2MuonCandidates
-
+      InputTag SeedTag = hltL2MuonSeeds
+      InputTag PreviousCandTag = DiMuonNoIsoL1Filtered
       int32 MinN = 2
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -28,9 +28,10 @@ module DiMuonNoIsoL2PreFiltered = HLTMuonPreFilter {
       double NSigmaPt = 3.9
 }
 
-module DiMuonNoIsoL3PreFiltered = HLTMuonPreFilter {
+module DiMuonNoIsoL3PreFiltered = HLTMuonL3PreFilter {
       InputTag CandTag = hltL3MuonCandidates
-
+      InputTag LinksTag = hltL3Muons
+      InputTag PreviousCandTag = DiMuonNoIsoL2PreFiltered
       int32 MinN = 2
       double MaxEta = 2.5
       #int32 MinNhits = 5

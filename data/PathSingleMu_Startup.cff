@@ -16,8 +16,10 @@ module SingleMuStartupL1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuStartupL2PreFiltered = HLTMuonPreFilter {
+module SingleMuStartupL2PreFiltered = HLTMuonL2PreFilter {
       InputTag CandTag = hltL2MuonCandidates
+      InputTag SeedTag = hltL2MuonSeeds
+      InputTag PreviousCandTag = SingleMuStartupL1Filtered
 
       int32 MinN = 1
       double MaxEta = 2.5

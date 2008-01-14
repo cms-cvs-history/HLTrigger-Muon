@@ -5,9 +5,10 @@ include "HLTrigger/Muon/data/PathDiMuon_1032_NoIso.cff"
 
 module prescaleDiMuonNoIsoRelaxedVtx2mm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module DiMuonNoIsoL3PreFilteredRelaxedVtx2mm = HLTMuonPreFilter {
+module DiMuonNoIsoL3PreFilteredRelaxedVtx2mm = HLTMuonL3PreFilter {
       InputTag CandTag = hltL3MuonCandidates
-
+      InputTag LinksTag = hltL3Muons
+      InputTag PreviousCandTag = DiMuonNoIsoL2PreFiltered
       int32 MinN = 2
       double MaxEta = 2.5
       #int32 MinNhits = 5
