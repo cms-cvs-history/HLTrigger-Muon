@@ -7,6 +7,7 @@ replace MuLevel1PathLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu3 OR L1_Si
 
 
 module prescaleMuLevel1Path = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+replace prescaleMuLevel1Path.prescaleFactor=1000
 
 module MuLevel1PathL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = MuLevel1PathLevel1Seed
