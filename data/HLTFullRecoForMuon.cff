@@ -1,5 +1,6 @@
 ## L2 seeds from L1 input
 module hltL2MuonSeeds = L2MuonSeeds from "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
+replace hltL2MuonSeeds.GMTReadoutCollection = gtDigis
 
 ## L3 regional reconstruction
 include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
