@@ -17,6 +17,7 @@ module SameSignMuL1Filtered = HLTMuonL1Filter {
 }
 
 module SameSignMuL2PreFiltered = HLTMuonDimuonL2Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
       InputTag PreviousCandTag = SameSignMuL1Filtered
@@ -48,6 +49,7 @@ module SameSignMuL2IsoFiltered = HLTMuonIsoFilter {
 }
 
 module SameSignMuL3PreFiltered = HLTMuonDimuonL3Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
       InputTag PreviousCandTag = SameSignMuL2PreFiltered

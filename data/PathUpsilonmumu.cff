@@ -17,6 +17,7 @@ module UpsilonMML1Filtered = HLTMuonL1Filter {
 }
 
 module UpsilonMML2Filtered = HLTMuonDimuonL2Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag PreviousCandTag = UpsilonMML1Filtered
       InputTag SeedTag = hltL2MuonSeeds
@@ -41,6 +42,7 @@ module UpsilonMML2Filtered = HLTMuonDimuonL2Filter {
 }
 
 module UpsilonMML3Filtered = HLTMuonDimuonL3Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag PreviousCandTag = UpsilonMML2Filtered
       InputTag LinksTag = hltL3Muons

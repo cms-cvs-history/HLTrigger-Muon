@@ -15,6 +15,7 @@ module ZMML1Filtered = HLTMuonL1Filter {
 }
 
 module ZMML2Filtered = HLTMuonDimuonL2Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag PreviousCandTag = ZMML1Filtered
       InputTag SeedTag = hltL2MuonSeeds
@@ -38,6 +39,7 @@ module ZMML2Filtered = HLTMuonDimuonL2Filter {
 }
 
 module ZMML3Filtered = HLTMuonDimuonL3Filter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
       InputTag PreviousCandTag = ZMML2Filtered

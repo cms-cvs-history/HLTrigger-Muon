@@ -17,6 +17,7 @@ module SingleMuStartupL1Filtered = HLTMuonL1Filter {
 }
 
 module SingleMuStartupL2PreFiltered = HLTMuonL2PreFilter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
       InputTag PreviousCandTag = SingleMuStartupL1Filtered

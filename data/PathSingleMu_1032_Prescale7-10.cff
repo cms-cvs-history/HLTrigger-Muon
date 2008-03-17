@@ -18,6 +18,7 @@ module SingleMuPrescale710L1Filtered = HLTMuonL1Filter {
 }
 
 module SingleMuPrescale710L2PreFiltered = HLTMuonL2PreFilter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
       InputTag PreviousCandTag = SingleMuPrescale710L1Filtered
@@ -32,6 +33,7 @@ module SingleMuPrescale710L2PreFiltered = HLTMuonL2PreFilter {
 }
 
 module SingleMuPrescale710L3PreFiltered = HLTMuonL3PreFilter {
+      InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
       InputTag PreviousCandTag = SingleMuPrescale710L2PreFiltered
