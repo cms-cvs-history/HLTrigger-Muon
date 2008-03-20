@@ -1,0 +1,26 @@
+## L2 seeds from L1 input
+module hltL2MuonSeeds = L2MuonSeeds from "RecoMuon/L2MuonSeedGenerator/data/L2MuonSeeds.cfi"
+replace hltL2MuonSeeds.GMTReadoutCollection = gtDigis
+
+module hltL3TrajectorySeed = hltL3TrajectorySeedFromL2 from "RecoMuon/TrackerSeedGenerator/data/TSGFromL2.cfi"
+replace hltL3TrajectorySeed.tkSeedGenerator = "TSGFromPropagation"
+
+module hltL3TrackCandidateFromL2 = ckfTrajectories from "RecoTracker/CkfPattern/data/CkfTrajectories.cfi"
+replace hltL3TrackCandidateFromL2.SeedProducer = "hltL3TrajectorySeed"
+replace hltL3TrackCandidateFromL2.TrajectoryBuilder = "muonCkfTrajectoryBuilder"
+replace hltL3TrackCandidateFromL2.trackCandidateAlso = true
+
+
+## L3 regional reconstruction
+include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
+module hltL3Muons = L3Muons from "RecoMuon/L3MuonProducer/data/L3Muons.cfi"
+replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
+replace hltL3Muons.L3TrajBuilderParameters.l3SeedLabel = donotgetSEED
+replace hltL3Muons.L3TrajBuilderParameters.tkTrajLabel = hltL3TrajectoryCandidateFromL2
+
+## Pixel tracking for muon isolation
+include "HLTrigger/Configuration/data/common/Vertexing.cff"
+
+sequence hltL3MuonTracks = { hltL3TrajectorySeed, hltL3TrackCandidateFromL2, hltL3Muons }
+sequence pixelTracksForMuons = { pixelTracks }
+
