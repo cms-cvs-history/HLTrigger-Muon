@@ -10,7 +10,7 @@ module hltL3TrackCandidateFromL2 = ckfTrajectories from "RecoTracker/CkfPattern/
 replace hltL3TrackCandidateFromL2.SeedProducer = "hltL3TrajectorySeed"
 replace hltL3TrackCandidateFromL2.TrajectoryBuilder = "muonCkfTrajectoryBuilder"
 replace hltL3TrackCandidateFromL2.trackCandidateAlso = true
-
+replace MuonCkfTrajectoryBuilder.useSeedLayer=true
 
 ## L3 regional reconstruction
 include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
