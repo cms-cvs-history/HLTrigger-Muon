@@ -17,7 +17,7 @@ include "RecoMuon/L3MuonProducer/data/L3Muons.cff"
 module hltL3Muons = L3Muons from "RecoMuon/L3MuonProducer/data/L3Muons.cfi"
 replace hltL3Muons.MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
 replace hltL3Muons.L3TrajBuilderParameters.l3SeedLabel = donotgetSEED
-replace hltL3Muons.L3TrajBuilderParameters.tkTrajLabel = hltL3TrajectoryCandidateFromL2
+replace hltL3Muons.L3TrajBuilderParameters.tkTrajLabel = hltL3TrackCandidateFromL2
 
 ## Pixel tracking for muon isolation
 include "HLTrigger/Configuration/data/common/Vertexing.cff"
