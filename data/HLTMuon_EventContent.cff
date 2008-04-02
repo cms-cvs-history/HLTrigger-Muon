@@ -31,25 +31,25 @@ block HLTMuonAOD = {
 	hltL2MuonCandidates
     }
     VInputTag triggerFilters = {
-        SingleMuIsoL3IsoFiltered,
-        SingleMuNoIsoL3PreFiltered,
-        DiMuonIsoL3IsoFiltered,
-	DiMuonNoIsoL3PreFiltered,
-	ZMML3Filtered,
-	JpsiMML3Filtered,
-	UpsilonMML3Filtered,
-	multiMuonNoIsoL3PreFiltered,
-	SameSignMuL3IsoFiltered,
-	ExclDiMuonIsoL3IsoFiltered,
-	SingleMuPrescale3L3PreFiltered,
-	SingleMuPrescale5L3PreFiltered,
-	SingleMuPrescale710L3PreFiltered,
-	SingleMuPrescale77L3PreFiltered,
-	DiMuonNoIsoL3PreFilteredRelaxedVtx2cm,
-	DiMuonNoIsoL3PreFilteredRelaxedVtx2mm,
-	SingleMuNoIsoL3PreFilteredRelaxedVtx2cm,
-	SingleMuNoIsoL3PreFilteredRelaxedVtx2mm,
-	SingleMuStartupL2PreFiltered
+        hltSingleMuIsoL3IsoFiltered,
+        hltSingleMuNoIsoL3PreFiltered,
+        hltDiMuonIsoL3IsoFiltered,
+	hltDiMuonNoIsoL3PreFiltered,
+	hltZMML3Filtered,
+	hltJpsiMML3Filtered,
+	hltUpsilonMML3Filtered,
+	hltMultiMuonNoIsoL3PreFiltered,
+	hltSameSignMuL3IsoFiltered,
+	hltExclDiMuonIsoL3IsoFiltered,
+	hltSingleMuPrescale3L3PreFiltered,
+	hltSingleMuPrescale5L3PreFiltered,
+	hltSingleMuPrescale710L3PreFiltered,
+	hltSingleMuPrescale77L3PreFiltered,
+	hltDiMuonNoIsoL3PreFilteredRelaxedVtx2cm,
+	hltDiMuonNoIsoL3PreFilteredRelaxedVtx2mm,
+	hltSingleMuNoIsoL3PreFilteredRelaxedVtx2cm,
+	hltSingleMuNoIsoL3PreFilteredRelaxedVtx2mm,
+	hltSingleMuStartupL2PreFiltered
     }
     untracked vstring outputCommands = {
     }
