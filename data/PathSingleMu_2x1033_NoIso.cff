@@ -2,13 +2,13 @@
 include "HLTrigger/Muon/data/CommonModules_2x1033.cff"
 
 ### HLT Filter flux ##########################################################
-module SingleMuNoIsoLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace SingleMuNoIsoLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu14"
+module hltSingleMuNoIsoLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltSingleMuNoIsoLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu14"
 
-module prescaleSingleMuNoIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescaleSingleMuNoIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module SingleMuNoIsoL1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = SingleMuNoIsoLevel1Seed
+module hltSingleMuNoIsoL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltSingleMuNoIsoLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -16,11 +16,11 @@ module SingleMuNoIsoL1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuNoIsoL2PreFiltered = HLTMuonL2PreFilter {
+module hltSingleMuNoIsoL2PreFiltered = HLTMuonL2PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = SingleMuNoIsoL1Filtered
+      InputTag PreviousCandTag = hltSingleMuNoIsoL1Filtered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -31,11 +31,11 @@ module SingleMuNoIsoL2PreFiltered = HLTMuonL2PreFilter {
       double NSigmaPt = 3.9
 }
 
-module SingleMuNoIsoL3PreFiltered = HLTMuonL3PreFilter {
+module hltSingleMuNoIsoL3PreFiltered = HLTMuonL3PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = SingleMuNoIsoL2PreFiltered
+      InputTag PreviousCandTag = hltSingleMuNoIsoL2PreFiltered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 5
@@ -48,10 +48,10 @@ module SingleMuNoIsoL3PreFiltered = HLTMuonL3PreFilter {
 
 sequence singleMuNoIso = {
     #L1 muon
-            prescaleSingleMuNoIso &
-            l1muonreco & SingleMuNoIsoLevel1Seed & SingleMuNoIsoL1Filtered
+            hltPrescaleSingleMuNoIso &
+            hltL1muonrecoSequence & hltSingleMuNoIsoLevel1Seed & hltSingleMuNoIsoL1Filtered
     #L2 muon
-          & l2muonreco & SingleMuNoIsoL2PreFiltered
+          & hltL2muonrecoSequence & hltSingleMuNoIsoL2PreFiltered
     #L3 muon
-          & l3muonreco & SingleMuNoIsoL3PreFiltered
+          & hltL3muonrecoSequence & hltSingleMuNoIsoL3PreFiltered
 }

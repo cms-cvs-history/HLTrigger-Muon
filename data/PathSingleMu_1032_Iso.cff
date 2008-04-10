@@ -2,13 +2,13 @@
 include "HLTrigger/Muon/data/CommonModules_1032.cff"
 
 ### HLT Filter flux ##########################################################
-module SingleMuIsoLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace SingleMuIsoLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu7"
+module hltSingleMuIsoLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltSingleMuIsoLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu7"
 
-module prescaleSingleMuIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescaleSingleMuIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module SingleMuIsoL1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = SingleMuIsoLevel1Seed
+module hltSingleMuIsoL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltSingleMuIsoLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -16,11 +16,11 @@ module SingleMuIsoL1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuIsoL2PreFiltered = HLTMuonL2PreFilter {
+module hltSingleMuIsoL2PreFiltered = HLTMuonL2PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = SingleMuIsoL1Filtered
+      InputTag PreviousCandTag = hltSingleMuIsoL1Filtered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -31,18 +31,18 @@ module SingleMuIsoL2PreFiltered = HLTMuonL2PreFilter {
       double NSigmaPt = 3.9
 }
 
-module SingleMuIsoL2IsoFiltered = HLTMuonIsoFilter {
-      InputTag CandTag = SingleMuIsoL2PreFiltered
+module hltSingleMuIsoL2IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = hltSingleMuIsoL2PreFiltered
       InputTag IsoTag = hltL2MuonIsolations
 
       int32 MinN = 1
 }
 
-module SingleMuIsoL3PreFiltered = HLTMuonL3PreFilter {
+module hltSingleMuIsoL3PreFiltered = HLTMuonL3PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = SingleMuIsoL2IsoFiltered
+      InputTag PreviousCandTag = hltSingleMuIsoL2IsoFiltered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 5
@@ -53,8 +53,8 @@ module SingleMuIsoL3PreFiltered = HLTMuonL3PreFilter {
       double NSigmaPt = 2.2
 }
 
-module SingleMuIsoL3IsoFiltered = HLTMuonIsoFilter {
-      InputTag CandTag = SingleMuIsoL3PreFiltered
+module hltSingleMuIsoL3IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = hltSingleMuIsoL3PreFiltered
       InputTag IsoTag = hltL3MuonIsolations
 
       int32 MinN = 1
@@ -62,14 +62,14 @@ module SingleMuIsoL3IsoFiltered = HLTMuonIsoFilter {
 
 sequence singleMuIso = {
     #L1 muon
-            prescaleSingleMuIso &
-            l1muonreco & SingleMuIsoLevel1Seed & SingleMuIsoL1Filtered
+            hltPrescaleSingleMuIso &
+            hltL1muonrecoSequence & hltSingleMuIsoLevel1Seed & hltSingleMuIsoL1Filtered
     #L2 muon
-          & l2muonreco & SingleMuIsoL2PreFiltered
+          & hltL2muonrecoSequence & hltSingleMuIsoL2PreFiltered
     #L2 muon isolation
-          & l2muonisoreco & SingleMuIsoL2IsoFiltered
+          & hltL2muonisorecoSequence & hltSingleMuIsoL2IsoFiltered
     #L3 muon
-          & l3muonreco & SingleMuIsoL3PreFiltered
+          & hltL3muonrecoSequence & hltSingleMuIsoL3PreFiltered
     #L3 muon isolation
-          & l3muonisoreco & SingleMuIsoL3IsoFiltered
+          & hltL3muonisorecoSequence & hltSingleMuIsoL3IsoFiltered
 }

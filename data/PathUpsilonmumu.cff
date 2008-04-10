@@ -2,13 +2,13 @@
 include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
-module UpsilonMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace UpsilonMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
+module hltUpsilonMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltUpsilonMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 
-module prescaleUpsilonMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescalehltUpsilonMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module UpsilonMML1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = UpsilonMMLevel1Seed
+module hltUpsilonMML1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltUpsilonMMLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -16,10 +16,10 @@ module UpsilonMML1Filtered = HLTMuonL1Filter {
       int32 MinN = 2
 }
 
-module UpsilonMML2Filtered = HLTMuonDimuonL2Filter {
+module hltUpsilonMML2Filtered = HLTMuonDimuonL2Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
-      InputTag PreviousCandTag = UpsilonMML1Filtered
+      InputTag PreviousCandTag = hltUpsilonMML1Filtered
       InputTag SeedTag = hltL2MuonSeeds
 
       bool FastAccept = false
@@ -41,10 +41,10 @@ module UpsilonMML2Filtered = HLTMuonDimuonL2Filter {
       double NSigmaPt = 0.
 }
 
-module UpsilonMML3Filtered = HLTMuonDimuonL3Filter {
+module hltUpsilonMML3Filtered = HLTMuonDimuonL3Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
-      InputTag PreviousCandTag = UpsilonMML2Filtered
+      InputTag PreviousCandTag = hltUpsilonMML2Filtered
       InputTag LinksTag = hltL3Muons
       bool FastAccept = false
       double MaxEta = 2.5
@@ -67,10 +67,10 @@ module UpsilonMML3Filtered = HLTMuonDimuonL3Filter {
 
 sequence upsilonMM = {
     #L1 muon
-            prescaleUpsilonMM &
-            l1muonreco & UpsilonMMLevel1Seed & UpsilonMML1Filtered
+            hltPrescalehltUpsilonMM &
+            hltL1muonrecoSequence & hltUpsilonMMLevel1Seed & hltUpsilonMML1Filtered
     #L2 muon
-          & l2muonreco & UpsilonMML2Filtered
+          & hltL2muonrecoSequence & hltUpsilonMML2Filtered
     #L3 muon
-          & l3muonreco & UpsilonMML3Filtered
+          & hltL3muonrecoSequence & hltUpsilonMML3Filtered
 }

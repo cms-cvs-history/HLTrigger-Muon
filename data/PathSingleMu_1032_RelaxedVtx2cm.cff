@@ -3,13 +3,13 @@ include "HLTrigger/Muon/data/PathSingleMu_1032_NoIso.cff"
 
 ### HLT Filter flux ##########################################################
 
-module prescaleSingleMuNoIsoRelaxedVtx2cm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescaleSingleMuNoIsoRelaxedVtx2cm = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module SingleMuNoIsoL3PreFilteredRelaxedVtx2cm = HLTMuonL3PreFilter {
+module hltSingleMuNoIsoL3PreFilteredRelaxedVtx2cm = HLTMuonL3PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = SingleMuNoIsoL2PreFiltered
+      InputTag PreviousCandTag = hltSingleMuNoIsoL2PreFiltered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 5
@@ -22,10 +22,10 @@ module SingleMuNoIsoL3PreFilteredRelaxedVtx2cm = HLTMuonL3PreFilter {
 
 sequence singleMuNoIsoRelaxedVtx2cm = {
     #L1 muon
-            prescaleSingleMuNoIsoRelaxedVtx2cm &
-            l1muonreco & SingleMuNoIsoLevel1Seed & SingleMuNoIsoL1Filtered
+            hltPrescaleSingleMuNoIsoRelaxedVtx2cm &
+            hltL1muonrecoSequence & hltSingleMuNoIsoLevel1Seed & hltSingleMuNoIsoL1Filtered
     #L2 muon
-          & l2muonreco & SingleMuNoIsoL2PreFiltered
+          & hltL2muonrecoSequence & hltSingleMuNoIsoL2PreFiltered
     #L3 muon
-          & l3muonreco & SingleMuNoIsoL3PreFilteredRelaxedVtx2cm
+          & hltL3muonrecoSequence & hltSingleMuNoIsoL3PreFilteredRelaxedVtx2cm
 }

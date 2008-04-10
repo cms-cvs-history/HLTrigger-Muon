@@ -2,13 +2,13 @@
 include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
-module SingleMuStartupLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace SingleMuStartupLevel1Seed.L1SeedsLogicalExpression = "L1_SingleMu3 OR L1_SingleMu5 OR L1_SingleMu7" 
+module hltSingleMuStartupLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltSingleMuStartupLevel1Seed.L1SeedsLogicalExpression = "L1_hltSingleMu3 OR L1_hltSingleMu5 OR L1_hltSingleMu7" 
 
-module prescaleSingleMuStartup = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescaleSingleMuStartup = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module SingleMuStartupL1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = SingleMuStartupLevel1Seed
+module hltSingleMuStartupL1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltSingleMuStartupLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -16,11 +16,11 @@ module SingleMuStartupL1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuStartupL2PreFiltered = HLTMuonL2PreFilter {
+module hltSingleMuStartupL2PreFiltered = HLTMuonL2PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = SingleMuStartupL1Filtered
+      InputTag PreviousCandTag = hltSingleMuStartupL1Filtered
 
       int32 MinN = 1
       double MaxEta = 2.5
@@ -34,8 +34,8 @@ module SingleMuStartupL2PreFiltered = HLTMuonL2PreFilter {
 
 sequence singleMuStartup = {
     #L1 muon
-            prescaleSingleMuStartup &
-            l1muonreco & SingleMuStartupLevel1Seed & SingleMuStartupL1Filtered
+            hltPrescaleSingleMuStartup &
+            hltL1muonrecoSequence & hltSingleMuStartupLevel1Seed & hltSingleMuStartupL1Filtered
     #L2 muon
-          & l2muonreco & SingleMuStartupL2PreFiltered
+          & hltL2muonrecoSequence & hltSingleMuStartupL2PreFiltered
 }

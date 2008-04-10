@@ -2,12 +2,12 @@
 include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
-module ExclMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace ExclMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
+module hltExclMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltExclMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 
-module prescaleExclMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-module ExclMML1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = ExclMMLevel1Seed
+module hltPrescalehltExclMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltExclMML1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltExclMMLevel1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -15,11 +15,11 @@ module ExclMML1Filtered = HLTMuonL1Filter {
       int32 MinN = 2
 }
 
-module ExclMML2Filtered = HLTMuonDimuonL2Filter {
+module hltExclMML2Filtered = HLTMuonDimuonL2Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = ExclMML1Filtered
+      InputTag PreviousCandTag = hltExclMML1Filtered
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -40,19 +40,19 @@ module ExclMML2Filtered = HLTMuonDimuonL2Filter {
       double NSigmaPt = 0.
 }
 
-module ExclDiMuonIsoL2IsoFiltered = HLTMuonIsoFilter {
-      InputTag CandTag = ExclMML2Filtered
+module hltExclhltDiMuonIsoL2IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = hltExclMML2Filtered
       InputTag IsoTag = hltL2MuonIsolations
 
       int32 MinN = 1
 }
 
 
-module ExclMML3Filtered = HLTMuonDimuonL3Filter {
+module hltExclMML3Filtered = HLTMuonDimuonL3Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag =ExclDiMuonIsoL2IsoFiltered
+      InputTag PreviousCandTag =hltExclhltDiMuonIsoL2IsoFiltered
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -73,23 +73,23 @@ module ExclMML3Filtered = HLTMuonDimuonL3Filter {
       double NSigmaPt = 0.
 }
 
-module ExclDiMuonIsoL3IsoFiltered = HLTMuonIsoFilter {
-      InputTag CandTag = ExclMML3Filtered
+module hltExclhltDiMuonIsoL3IsoFiltered = HLTMuonIsoFilter {
+      InputTag CandTag = hltExclMML3Filtered
       InputTag IsoTag = hltL3MuonIsolations
 
       int32 MinN = 1
 }
 
-sequence diMuonExcl = {
+sequence diMuonhltExcl = {
     #L1 muon
-            prescaleExclMM &
-            l1muonreco & ExclMMLevel1Seed & ExclMML1Filtered
+            hltPrescalehltExclMM &
+            hltL1muonrecoSequence & hltExclMMLevel1Seed & hltExclMML1Filtered
     #L2 muon
-          & l2muonreco & ExclMML2Filtered
+          & hltL2muonrecoSequence & hltExclMML2Filtered
     #L2 muon isolation
-          & l2muonisoreco & ExclDiMuonIsoL2IsoFiltered
+          & hltL2muonisorecoSequence & hltExclhltDiMuonIsoL2IsoFiltered
     #L3 muon
-          & l3muonreco & ExclMML3Filtered
+          & hltL3muonrecoSequence & hltExclMML3Filtered
     #L3 muon isolation
-          & l3muonisoreco & ExclDiMuonIsoL3IsoFiltered
+          & hltL3muonisorecoSequence & hltExclhltDiMuonIsoL3IsoFiltered
 }

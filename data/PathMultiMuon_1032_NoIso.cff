@@ -5,7 +5,7 @@ include "HLTrigger/Muon/data/CommonModules_1032.cff"
 module multiMuonNoIsoLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
 replace multiMuonNoIsoLevel1Seed.L1SeedsLogicalExpression = "L1_TripleMu3"
 
-module prescaleMultiMuonNoIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescalehltMultiMuonNoIso = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
 module multiMuonNoIsoL1Filtered = HLTMuonL1Filter {
       InputTag CandTag = multiMuonNoIsoLevel1Seed
@@ -48,10 +48,10 @@ module multiMuonNoIsoL3PreFiltered = HLTMuonL3PreFilter {
 
 sequence multiMuonNoIso = {
     #L1 muon
-            prescaleMultiMuonNoIso &
-            l1muonreco & multiMuonNoIsoLevel1Seed & multiMuonNoIsoL1Filtered
+            hltPrescalehltMultiMuonNoIso &
+            hltL1muonrecoSequence & multiMuonNoIsoLevel1Seed & multiMuonNoIsoL1Filtered
     #L2 muon
-          & l2muonreco & multiMuonNoIsoL2PreFiltered
+          & hltL2muonrecoSequence & multiMuonNoIsoL2PreFiltered
     #L3 muon
-          & l3muonreco & multiMuonNoIsoL3PreFiltered
+          & hltL3muonrecoSequence & multiMuonNoIsoL3PreFiltered
 }

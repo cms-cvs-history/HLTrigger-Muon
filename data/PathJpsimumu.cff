@@ -1,27 +1,25 @@
-### RecoMuon flux ##########################################################
+
 include "HLTrigger/Muon/data/CommonModules.cff"
 
-### HLT Filter flux ##########################################################
-module JpsiMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace JpsiMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 
+module hltJpsiMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltJpsiMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 
-module prescaleJPsiMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltPrescaleJpsiMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 
-module JpsiMML1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = JpsiMMLevel1Seed
-
+module hltJpsiMML1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltJpsiMMLevel1Seed
       double MaxEta = 2.5
       double MinPt = 0.
       int32 MinQuality = -1
       int32 MinN = 2
 }
 
-module JpsiMML2Filtered = HLTMuonDimuonL2Filter {
+module hltJpsiMML2Filtered = HLTMuonDimuonL2Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = JpsiMML1Filtered
+      InputTag PreviousCandTag = hltJpsiMML1Filtered
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -42,11 +40,11 @@ module JpsiMML2Filtered = HLTMuonDimuonL2Filter {
       double NSigmaPt = 0.
 }
 
-module JpsiMML3Filtered = HLTMuonDimuonL3Filter {
+module hltJpsiMML3Filtered = HLTMuonDimuonL3Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = JpsiMML2Filtered
+      InputTag PreviousCandTag = hltJpsiMML2Filtered
 
       bool FastAccept = false
       double MaxEta = 2.5
@@ -58,8 +56,8 @@ module JpsiMML3Filtered = HLTMuonDimuonL3Filter {
       double MinPtPair = 0.
       double MinPtMax = 3.
       double MinPtMin = 3.
-      double MinInvMass = 2.8
-      double MaxInvMass = 3.4
+      double MinInvMass = 3.5
+      double MaxInvMass = 3.9
       double MinAcop = -1.0
       double MaxAcop = 3.15
       double MinPtBalance = -1.0
@@ -69,10 +67,10 @@ module JpsiMML3Filtered = HLTMuonDimuonL3Filter {
 
 sequence jpsiMM = {
     #L1 muon
-            prescaleJPsiMM &
-            l1muonreco & JpsiMMLevel1Seed & JpsiMML1Filtered
+            hltPrescaleJpsiMM &
+            hltL1muonrecoSequence & hltJpsiMMLevel1Seed & hltJpsiMML1Filtered
     #L2 muon
-          & l2muonreco & JpsiMML2Filtered
+          & hltL2muonrecoSequence & hltJpsiMML2Filtered
     #L3 muon
-          & l3muonreco & JpsiMML3Filtered
+          & hltL3muonrecoSequence & hltJpsiMML3Filtered
 }

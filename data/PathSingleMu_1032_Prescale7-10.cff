@@ -2,14 +2,14 @@
 include "HLTrigger/Muon/data/CommonModules_1032.cff"
 
 ### HLT Filter flux ##########################################################
-module SingleMuPrescale710Level1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace SingleMuPrescale710Level1Seed.L1SeedsLogicalExpression = "L1_SingleMu7"
+module hltSingleMuPrescale710Level1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltSingleMuPrescale710Level1Seed.L1SeedsLogicalExpression = "L1_SingleMu7"
 
 module preSingleMuPrescale710 = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
 replace preSingleMuPrescale710.prescaleFactor = 100
 
-module SingleMuPrescale710L1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = SingleMuPrescale710Level1Seed
+module hltSingleMuPrescale710L1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltSingleMuPrescale710Level1Seed
 
       double MaxEta = 2.5
       double MinPt = 0.
@@ -17,11 +17,11 @@ module SingleMuPrescale710L1Filtered = HLTMuonL1Filter {
       int32 MinN = 1
 }
 
-module SingleMuPrescale710L2PreFiltered = HLTMuonL2PreFilter {
+module hltSingleMuPrescale710L2PreFiltered = HLTMuonL2PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
       InputTag SeedTag = hltL2MuonSeeds
-      InputTag PreviousCandTag = SingleMuPrescale710L1Filtered
+      InputTag PreviousCandTag = hltSingleMuPrescale710L1Filtered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -32,11 +32,11 @@ module SingleMuPrescale710L2PreFiltered = HLTMuonL2PreFilter {
       double NSigmaPt = 3.9
 }
 
-module SingleMuPrescale710L3PreFiltered = HLTMuonL3PreFilter {
+module hltSingleMuPrescale710L3PreFiltered = HLTMuonL3PreFilter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = SingleMuPrescale710L2PreFiltered
+      InputTag PreviousCandTag = hltSingleMuPrescale710L2PreFiltered
       int32 MinN = 1
       double MaxEta = 2.5
       #int32 MinNhits = 5
@@ -49,9 +49,9 @@ module SingleMuPrescale710L3PreFiltered = HLTMuonL3PreFilter {
 
 sequence singleMuPrescale710 = {
     #L1 muon
-            preSingleMuPrescale710 & l1muonreco & SingleMuPrescale710Level1Seed & SingleMuPrescale710L1Filtered
+            preSingleMuPrescale710 & hltL1muonrecoSequence & hltSingleMuPrescale710Level1Seed & hltSingleMuPrescale710L1Filtered
     #L2 muon
-          & l2muonreco & SingleMuPrescale710L2PreFiltered
+          & hltL2muonrecoSequence & hltSingleMuPrescale710L2PreFiltered
     #L3 muon
-          & l3muonreco & SingleMuPrescale710L3PreFiltered
+          & hltL3muonrecoSequence & hltSingleMuPrescale710L3PreFiltered
 }

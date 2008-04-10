@@ -80,10 +80,10 @@ module hltL3MuonIsolations = L3MuonIsolationProducer {
       }
 }
 
-sequence l1muonreco = { hltBegin }
-sequence l2muonrecoNocand = { doLocalMuon, hltL2MuonSeeds, hltL2Muons }
-sequence l2muonreco = { l2muonrecoNocand, hltL2MuonCandidates }
-sequence l2muonisoreco = { doRegionalCaloForMuons, hltL2MuonIsolations }
-sequence l3muonrecoNocand = { doLocalPixel & doLocalStrip & hltL3MuonTracks }
-sequence l3muonreco = { l3muonrecoNocand, hltL3MuonCandidates }
-sequence l3muonisoreco = { pixelTracksForMuons, hltL3MuonIsolations }
+sequence hltL1muonrecoSequence = { hltBegin }
+sequence hltL2muonrecoNocandSequence = { doLocalMuon, hltL2MuonSeeds, hltL2Muons }
+sequence hltL2muonrecoSequence = { hltL2muonrecoNocandSequence, hltL2MuonCandidates }
+sequence hltL2muonisorecoSequence = { doRegionalCaloForMuons, hltL2MuonIsolations }
+sequence hltL3muonrecoNocandSequence = { doLocalPixel & doLocalStrip & hltL3MuonTracks }
+sequence hltL3muonrecoSequence = { hltL3muonrecoNocandSequence, hltL3MuonCandidates }
+sequence hltL3muonisorecoSequence = { pixelTracksForMuons, hltL3MuonIsolations }

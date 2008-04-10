@@ -2,22 +2,22 @@
 include "HLTrigger/Muon/data/CommonModules.cff"
 
 ### HLT Filter flux ##########################################################
-module ZMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
-replace ZMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
+module hltZMMLevel1Seed = hltLevel1GTSeed from "HLTrigger/HLTfilters/data/hltLevel1GTSeed.cfi"
+replace hltZMMLevel1Seed.L1SeedsLogicalExpression = "L1_DoubleMu3"
 
-module prescaleZMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
-module ZMML1Filtered = HLTMuonL1Filter {
-      InputTag CandTag = ZMMLevel1Seed
+module hltPrescalehltZMM = hltPrescaler from "HLTrigger/HLTcore/data/hltPrescaler.cfi"
+module hltZMML1Filtered = HLTMuonL1Filter {
+      InputTag CandTag = hltZMMLevel1Seed
       double MaxEta = 2.5
       double MinPt = 0.
       int32 MinQuality = -1
       int32 MinN = 2
 }
 
-module ZMML2Filtered = HLTMuonDimuonL2Filter {
+module hltZMML2Filtered = HLTMuonDimuonL2Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL2MuonCandidates
-      InputTag PreviousCandTag = ZMML1Filtered
+      InputTag PreviousCandTag = hltZMML1Filtered
       InputTag SeedTag = hltL2MuonSeeds
       bool FastAccept = false
       double MaxEta = 2.5
@@ -38,11 +38,11 @@ module ZMML2Filtered = HLTMuonDimuonL2Filter {
       double NSigmaPt = 0.
 }
 
-module ZMML3Filtered = HLTMuonDimuonL3Filter {
+module hltZMML3Filtered = HLTMuonDimuonL3Filter {
       InputTag BeamSpotTag = offlineBeamSpot
       InputTag CandTag = hltL3MuonCandidates
       InputTag LinksTag = hltL3Muons
-      InputTag PreviousCandTag = ZMML2Filtered
+      InputTag PreviousCandTag = hltZMML2Filtered
       bool FastAccept = false
       double MaxEta = 2.5
       #int32 MinNhits = 4
@@ -64,10 +64,10 @@ module ZMML3Filtered = HLTMuonDimuonL3Filter {
 
 sequence zMM = {
     #L1 muon
-            prescaleZMM &
-            l1muonreco & ZMMLevel1Seed & ZMML1Filtered
+            hltPrescalehltZMM &
+            hltL1muonrecoSequence & hltZMMLevel1Seed & hltZMML1Filtered
     #L2 muon
-          & l2muonreco & ZMML2Filtered
+          & hltL2muonrecoSequence & hltZMML2Filtered
     #L3 muon
-          & l3muonreco & ZMML3Filtered
+          & hltL3muonrecoSequence & hltZMML3Filtered
 }
