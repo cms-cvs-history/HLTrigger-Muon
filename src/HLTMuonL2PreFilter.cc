@@ -87,7 +87,7 @@ HLTMuonL2PreFilter::filter(Event& iEvent, const EventSetup& iSetup)
 
    // get hold of trks
    Handle<RecoChargedCandidateCollection> mucands;
-   if(saveTag_)filterproduct->addCollectionTag(candTag_);
+   if(saveTag_)filterproduct->addCollectionTag(candTag_, static_cast<const HLTFilter &> (*this));
    iEvent.getByLabel (candTag_,mucands);
    Handle<TriggerFilterObjectWithRefs> previousLevelCands;
    iEvent.getByLabel (previousCandTag_,previousLevelCands);

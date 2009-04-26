@@ -106,7 +106,7 @@ HLTMuonDimuonL2Filter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
    // get hold of trks
    Handle<RecoChargedCandidateCollection> mucands;
    iEvent.getByLabel (candTag_,mucands);
-   if(saveTag_)filterproduct->addCollectionTag(candTag_);
+   if(saveTag_)filterproduct->addCollectionTag(candTag_, static_cast<const HLTFilter &> (*this));
 
    Handle<TriggerFilterObjectWithRefs> previousLevelCands;
    iEvent.getByLabel (previousCandTag_,previousLevelCands);

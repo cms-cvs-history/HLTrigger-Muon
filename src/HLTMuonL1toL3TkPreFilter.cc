@@ -85,7 +85,7 @@ HLTMuonL1toL3TkPreFilter::filter(Event& iEvent, const EventSetup& iSetup)
    //   Handle<reco::TrackCollection> mucands;
    Handle<RecoChargedCandidateCollection> mucands;
    iEvent.getByLabel(candTag_,mucands);
-   if(saveTag_)filterproduct->addCollectionTag(candTag_);
+   if(saveTag_)filterproduct->addCollectionTag(candTag_, static_cast<const HLTFilter &> (*this));
    // sort them by L2Track
    std::map<l1extra::L1MuonParticleRef, std::vector<RecoChargedCandidateRef> > L1toL3s;
    uint n = 0;

@@ -120,7 +120,7 @@ HLTMuonL1Filter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       n++;
       filterproduct->addObject(TriggerL1Mu,muon);
    }
-   if(saveTag_)filterproduct->addCollectionTag(candTag_);
+   if(saveTag_)filterproduct->addCollectionTag(candTag_, static_cast<const HLTFilter &> (*this));
 
    vector<L1MuonParticleRef> vref;
    filterproduct->getObjects(TriggerL1Mu,vref);
