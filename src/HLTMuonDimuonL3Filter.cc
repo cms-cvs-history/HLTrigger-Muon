@@ -51,11 +51,12 @@ HLTMuonDimuonL3Filter::HLTMuonDimuonL3Filter(const edm::ParameterSet& iConfig) :
    max_PtBalance_ (iConfig.getParameter<double> ("MaxPtBalance")),
    nsigma_Pt_   (iConfig.getParameter<double> ("NSigmaPt")), 
    max_DzMuMu_  (iConfig.getParameter<double>("MaxDzMuMu")),
+   max_YPair_   (iConfig.getParameter<double>("MaxRapidityPair")),
    saveTag_  (iConfig.getUntrackedParameter<bool> ("SaveTag",false)) 
 {
 
    LogDebug("HLTMuonDimuonL3Filter")
-      << " CandTag/MinN/MaxEta/MinNhits/MaxDr/MaxDz/MinPt1/MinPt2/MinInvMass/MaxInvMass/MinAcop/MaxAcop/MinPtBalance/MaxPtBalance/NSigmaPt/MaxDzMuMu : " 
+      << " CandTag/MinN/MaxEta/MinNhits/MaxDr/MaxDz/MinPt1/MinPt2/MinInvMass/MaxInvMass/MinAcop/MaxAcop/MinPtBalance/MaxPtBalance/NSigmaPt/MaxDzMuMu/MaxRapidityPair : " 
       << candTag_.encode()
       << " " << fast_Accept_
       << " " << max_Eta_
@@ -68,7 +69,8 @@ HLTMuonDimuonL3Filter::HLTMuonDimuonL3Filter(const edm::ParameterSet& iConfig) :
       << " " << min_Acop_ << " " << max_Acop_
       << " " << min_PtBalance_ << " " << max_PtBalance_
       << " " << nsigma_Pt_
-      << " " << max_DzMuMu_;
+      << " " << max_DzMuMu_
+      << " " << max_YPair_;
 
    //register your products
    produces<trigger::TriggerFilterObjectWithRefs>();
@@ -246,9 +248,13 @@ HLTMuonDimuonL3Filter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	      if (invmass<min_InvMass_) continue;
 	      if (invmass>max_InvMass_) continue;
 
-        // Delta Z between the two muons
-        double DeltaZMuMu = fabs(tk2->dz(beamSpot.position())-tk1->dz(beamSpot.position()));
-        if ( DeltaZMuMu > max_DzMuMu_) continue;
+              // Delta Z between the two muons
+              double DeltaZMuMu = fabs(tk2->dz(beamSpot.position())-tk1->dz(beamSpot.position()));
+              if ( DeltaZMuMu > max_DzMuMu_) continue;
+              
+              // Max dimuon |rapidity|
+              double rapidity = fabs(p.Rapidity());
+              if ( rapidity > max_YPair_) continue;
               
 	      // Add this pair
 	      n++;
