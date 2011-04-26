@@ -23,6 +23,11 @@
 #include "DataFormats/MuonSeed/interface/L3MuonTrajectorySeed.h"
 #include "DataFormats/MuonSeed/interface/L3MuonTrajectorySeedCollection.h"
 
+#include "TrackingTools/PatternTools/interface/ClosestApproachInRPhi.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrack.h"
+#include "MagneticField/Engine/interface/MagneticField.h"
+#include "MagneticField/Records/interface/IdealMagneticFieldRecord.h"
+
 using namespace edm;
 using namespace std;
 using namespace reco;
@@ -50,7 +55,7 @@ HLTMuonDimuonL3Filter::HLTMuonDimuonL3Filter(const edm::ParameterSet& iConfig) :
    min_PtBalance_ (iConfig.getParameter<double> ("MinPtBalance")),
    max_PtBalance_ (iConfig.getParameter<double> ("MaxPtBalance")),
    nsigma_Pt_   (iConfig.getParameter<double> ("NSigmaPt")), 
-   max_DzMuMu_  (iConfig.getParameter<double>("MaxDzMuMu")),
+   max_DCAMuMu_  (iConfig.getParameter<double>("MaxDCAMuMu")),
    max_YPair_   (iConfig.getParameter<double>("MaxRapidityPair")),
    saveTag_  (iConfig.getUntrackedParameter<bool> ("SaveTag",false)) 
 {
@@ -69,7 +74,7 @@ HLTMuonDimuonL3Filter::HLTMuonDimuonL3Filter(const edm::ParameterSet& iConfig) :
       << " " << min_Acop_ << " " << max_Acop_
       << " " << min_PtBalance_ << " " << max_PtBalance_
       << " " << nsigma_Pt_
-      << " " << max_DzMuMu_
+      << " " << max_DCAMuMu_
       << " " << max_YPair_;
 
    //register your products
@@ -119,6 +124,10 @@ HLTMuonDimuonL3Filter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
    Handle<BeamSpot> recoBeamSpotHandle;
    iEvent.getByLabel(beamspotTag_,recoBeamSpotHandle);
    beamSpot = *recoBeamSpotHandle;
+
+   // Needed for DCA calculation
+   ESHandle<MagneticField> bFieldHandle;
+   iSetup.get<IdealMagneticFieldRecord>().get(bFieldHandle);
   
    // needed to compare to L2
    vector<RecoChargedCandidateRef> vl2cands;
@@ -249,8 +258,20 @@ HLTMuonDimuonL3Filter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	      if (invmass>max_InvMass_) continue;
 
               // Delta Z between the two muons
-              double DeltaZMuMu = fabs(tk2->dz(beamSpot.position())-tk1->dz(beamSpot.position()));
-              if ( DeltaZMuMu > max_DzMuMu_) continue;
+              //double DeltaZMuMu = fabs(tk2->dz(beamSpot.position())-tk1->dz(beamSpot.position()));
+              //if ( DeltaZMuMu > max_DzMuMu_) continue;
+
+	      // DCA between the two muons
+	      TransientTrack mu1TT(*tk1, &(*bFieldHandle));
+	      TransientTrack mu2TT(*tk2, &(*bFieldHandle));
+	      TrajectoryStateClosestToPoint mu1TS = mu1TT.impactPointTSCP();
+	      TrajectoryStateClosestToPoint mu2TS = mu2TT.impactPointTSCP();
+	      if (mu1TS.isValid() && mu2TS.isValid()) {
+		ClosestApproachInRPhi cApp;
+		cApp.calculate(mu1TS.theState(), mu2TS.theState());
+		if (!cApp.status()
+		    || cApp.distance() > max_DCAMuMu_) continue;
+	      }
               
               // Max dimuon |rapidity|
               double rapidity = fabs(p.Rapidity());

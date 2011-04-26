@@ -15,7 +15,7 @@ HLTMuonTrackMassFilter = cms.EDFilter("HLTMuonTrackMassFilter",
     MaxTrackDz = cms.double(999.),
     MinTrackHits = cms.int32(5),
     MaxTrackNormChi2 = cms.double(999999999.),
-    MaxDzMuonTrack = cms.double(0.5),
+    MaxDCAMuonTrack = cms.double(99999.9),
     CutCowboys = cms.bool( False ),
     SaveTag = cms.untracked.bool( False ),
 )
